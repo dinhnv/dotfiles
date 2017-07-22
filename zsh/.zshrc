@@ -2,8 +2,12 @@
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
 
 # Path to your oh-my-zsh installation.
-  export ZSH=/home/dinhnv/.oh-my-zsh
+export ZSH=$HOME/.oh-my-zsh
 
+export TERM="xterm-256color"
+
+
+POWERLEVEL9K_MODE='awesome-fontconfig'
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 # Uncomment the following line to use case-sensitive completion.
@@ -83,3 +87,7 @@ source $ZSH/oh-my-zsh.sh
 
 # zsh-completions
 autoload -U compinit && compinit
+
+for fontmap (~/.fonts/awesome-terminal-fonts/build/*.sh) source $fontmap
+
+for config (~/.zsh/*.zsh) source $config

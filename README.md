@@ -10,6 +10,7 @@ My personal dotfiles
   ```
   stow zsh
   stow git
+  stow fonts
   ```
 
 - zsh `sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
@@ -27,13 +28,18 @@ My personal dotfiles
 
 - zsh theme: [powerlevel9k](https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#step-1-install-powerlevel9k)
     + install for oh-my-zsh: `git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k`
-	+ [install powerline fonts](https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions)
+	+ fonts:
+		+ read about:
+			+ https://github.com/bhilburn/powerlevel9k/issues/429
+			+ https://github.com/bhilburn/powerlevel9k/blob/master/functions/icons.zsh#L144
+		+ [install a powerline fonts](https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions)
+			+ install [powerline fonts](https://github.com/powerline/fonts) firstly
+			+ install [awesome terminal](https://github.com/gabrielelana/awesome-terminal-fonts#how-to-install-osx)
+		+ Cmd + I -> Text: choose a powerline font for "Non-ASCII Font" (with iterm2), i.e: Meslo LG L for Powerline
 
 - zsh plugins: must be installed maually on guide:
     + [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 		use Ctrl+E or Ctrl+P to accept suggestion
 	+ [zsh-completions](https://github.com/zsh-users/zsh-completions) to add
 	  more definitions, i.e: ack, grep, etc.
-
-
-" vim: ts=4 sw=0 tw=80 foldlevel=0 foldmethod=indent
+	

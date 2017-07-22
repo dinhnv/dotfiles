@@ -1,0 +1,3 @@
+[submodule "awesome-terminal-fonts"]
+	path = fonts/.fonts/awesome-terminal-fonts
+	url = git@github.com:gabrielelana/awesome-terminal-fonts.git
