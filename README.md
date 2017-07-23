@@ -5,13 +5,7 @@ My personal dotfiles
 
 - application directory should be located in home: `~/applications/`
 
-- this repo should be located at home `~/dotfiles` to use stow as convenient, to
-  install:
-  ```
-  stow zsh
-  stow git
-  stow fonts
-  ```
+- this repo should be located at home `~/dotfiles` to use stow as convention
 
 - zsh `sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
 
@@ -43,3 +37,10 @@ My personal dotfiles
 	+ [zsh-completions](https://github.com/zsh-users/zsh-completions) to add
 	  more definitions, i.e: ack, grep, etc.
 	
+- `stow` cmd:
+  ```
+  stow zsh
+  stow git
+  stow fonts
+  stow tmux
+  ```
