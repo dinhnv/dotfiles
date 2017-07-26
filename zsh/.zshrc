@@ -144,3 +144,5 @@ for fontmap (~/.fonts/awesome-terminal-fonts/build/*.sh) source $fontmap
 for config (~/.zsh/*.zsh) source $config
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+bindkey '\t' autosuggest-accept
