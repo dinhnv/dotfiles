@@ -145,4 +145,4 @@ for config (~/.zsh/*.zsh) source $config
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-bindkey '\t' autosuggest-accept
+bindkey '^o' autosuggest-accept
