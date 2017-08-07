@@ -1,5 +1,5 @@
-export EDITOR=vim
-export VISUAL=vim
+export EDITOR=nvim
+export VISUAL=nvim
 
 # language
 export LC_COLLATE=en_US.UTF-8
