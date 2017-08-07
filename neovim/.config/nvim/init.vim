@@ -113,7 +113,7 @@ set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
 set list
 set nowrap                        " do not wrap long lines
 set timeoutlen=400                " timeout on keystroking
-set ttimeoutlen=250
+set ttimeoutlen=0
 set updatetime=1500               " Idle time to write swap
 set title
 set mouse=a                       " enable mouse support

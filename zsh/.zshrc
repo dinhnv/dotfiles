@@ -8,6 +8,9 @@ if [[ "$COLORTERM" == "gnome-terminal" ]]; then
 export TERM=xterm-256color
 fi
 
+# 10ms for key sequences
+KEYTIMEOUT=1
+
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(pyenv rbenv status root_indicator background_jobs time)
 POWERLEVEL9K_MODE='awesome-fontconfig'
