@@ -13,6 +13,7 @@ eggs/
 *.egg-info/
 .installed.cfg
 *.egg
+local.zsh
 
 pip-log.txt
 pip-delete-this-directory.txt
