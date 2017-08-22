@@ -14,6 +14,7 @@ KEYTIMEOUT=1
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(pyenv rbenv status root_indicator background_jobs time)
 POWERLEVEL9K_MODE='awesome-fontconfig'
+POWERLEVEL9K_MODE='patched-fontconfig'
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 ###############################################################################
