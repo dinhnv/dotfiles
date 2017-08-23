@@ -20,17 +20,34 @@ My personal dotfiles
     ```
     + macos: `brew install tmux`
 
+- 
+- python environment:
+    + brew install
+    ```
+    brew install pyenv
+    brew install pyenv-virtualenv
+    brew install pyenv-virtualenvwrapper
+    ```
+    + create some virtualenvs:
+    ```
+    pyenv install 3.6.2
+    pyenv virtualenv 3.6.2 devtools3
+    pyenv virtualenv 2.7.13 devtools2
+    pyenv global system devtools2 devtools3
+    pyenv activate devtools2
+    pip install neovim
+    pyenv activate devtools3
+    pip install neovim
+    ```
+
 - zsh theme: [powerlevel9k](https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#step-1-install-powerlevel9k)
     + install for oh-my-zsh: `git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k`
 	+ fonts:
-		+ read about:
-			+ https://github.com/bhilburn/powerlevel9k/issues/429
-			+ https://github.com/bhilburn/powerlevel9k/blob/master/functions/icons.zsh#L144
-		+ [install a powerline fonts](https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions)
-			+ install [powerline fonts](https://github.com/powerline/fonts) firstly
-			+ install [awesome terminal](https://github.com/gabrielelana/awesome-terminal-fonts#how-to-install-osx)
-		+ Cmd + I -> Text: choose a powerline font for "Non-ASCII Font" (with iterm2), i.e: Meslo LG L for Powerline
-
+        + use `POWERLEVEL9K_MODE='awesome-patched'`
+        + Get `https://github.com/gabrielelana/awesome-terminal-fonts/tree/patching-strategy/patched`
+          And save to `~/Library/Fonts`
+        + Run `sudo fc-cache -rv`
+        + Edit terminal profile and choose Non-ASCII Font (iterm2) that a font from above repository
 - zsh plugins: must be installed maually on guide:
     + [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
 		use Ctrl+E or Ctrl+P to accept suggestion
@@ -44,3 +61,11 @@ My personal dotfiles
   stow fonts
   stow tmux
   ```
+
+- Macos Sierra Tmux issue:
+
+https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
+
+`brew install reattach-to-user-namespace`
+
+[Config iterm](https://apple.stackexchange.com/questions/208387/copy-to-clipboard-from-tmux-in-el-capitan)

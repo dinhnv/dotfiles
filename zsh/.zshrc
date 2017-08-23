@@ -13,7 +13,6 @@ KEYTIMEOUT=1
 
 POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
 POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(pyenv rbenv status root_indicator background_jobs time)
-POWERLEVEL9K_MODE='awesome-fontconfig'
 POWERLEVEL9K_MODE='patched-fontconfig'
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
@@ -33,11 +32,14 @@ FZF_MARKS_PLUGIN=~/.fzf-plugins/fzf-marks/fzf-marks.plugin.zsh
 
 # pyenv
 export PYENV_ROOT="$HOME/.pyenv"
-export PYENV_VIRTUALENV_DISABLE_PROMPT=1
 if [[ -d $PYENV_ROOT ]];then
+    export PYENV_VIRTUALENV_DISABLE_PROMPT=1
+    export WORKON_HOME=$HOME/.virtualenvs
+    export PROJECT_HOME=$HOME/work
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
     # eval "$(pyenv virtualenv-init -)"
+    # pyenv virtualenvwrapper_lazy
 fi
 
 export XDG_CONFIG_HOME="$HOME/.config"
@@ -81,8 +83,6 @@ alias dinodeploy='fab -f ~/dev/bots/dino_bot.py deploy:b=master'
 
 # zsh-completions
 autoload -U compinit && compinit
-
-for fontmap (~/.fonts/awesome-terminal-fonts/build/*.sh) source $fontmap
 
 for config (~/.zsh/*.zsh) source $config
 
