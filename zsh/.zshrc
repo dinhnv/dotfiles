@@ -56,10 +56,10 @@ export PATH=$GRADLE_HOME/bin:$PATH
 export ANDROID_HOME=$HOME/Android/Sdk
 export PATH=$ANDROID_HOME/tools:$ANDROID_HOME/platform-tools/:$PATH
 export PATH=$PATH:/usr/local/go/bin
-export GOPATH=$HOME/gocode
+# export GOPATH=$HOME/gocode
 
 NPM_PACKAGES="${HOME}/.npm-packages"
-export PATH=$NPM_PACKAGES/bin:$GOPATH:$GOPATH/bin:$PATH
+export PATH=$NPM_PACKAGES/bin:$PATH
 
 # Unset manpath so we can inherit from /etc/manpath via the `manpath` command
 unset MANPATH # delete if you already modified MANPATH elsewhere in your config
@@ -71,6 +71,8 @@ typeset -U PATH
 # alias
 alias fig='docker-compose'
 alias dinodeploy='fab -f ~/dev/bots/dino_bot.py deploy:b=master'
+alias tmuxd='tmux new -s dev'
+alias redisd='redis-server /usr/local/etc/redis.conf'
 
 # Compilation flags
 # export ARCHFLAGS="-arch x86_64"
@@ -85,7 +87,5 @@ alias dinodeploy='fab -f ~/dev/bots/dino_bot.py deploy:b=master'
 autoload -U compinit && compinit
 
 for config (~/.zsh/*.zsh) source $config
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 bindkey '^o' autosuggest-accept

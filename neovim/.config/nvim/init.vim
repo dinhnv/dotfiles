@@ -8,8 +8,8 @@
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 set nocompatible
 
-let g:python_host_prog  = $PYENV_ROOT . '/versions/py2neovim/bin/python'
-let g:python3_host_prog = $PYENV_ROOT . '/versions/py3neovim/bin/python'
+let g:python_host_prog  = $PYENV_ROOT . '/versions/devtools2/bin/python'
+let g:python3_host_prog = $PYENV_ROOT . '/versions/devtools3/bin/python'
 
 " plug.vim {{{
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
