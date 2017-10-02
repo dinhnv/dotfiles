@@ -7,7 +7,6 @@ function psg() {
     ps -ef | grep -i "$@" | grep -v grep
 }
 
-
 # https://github.com/zanshin/dotfiles/blob/master/bash/bash_functions
 # Call from a local repo to open the repository on github/bitbucket in browser
 function repo() {

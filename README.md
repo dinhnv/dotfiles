@@ -20,10 +20,11 @@ My personal dotfiles
     ```
     + macos: `brew install tmux`
 
-- 
 - python environment:
-    + brew install
+    + pre-requirements
     ```
+    brew install ctags
+
     brew install pyenv
     brew install pyenv-virtualenv
     brew install pyenv-virtualenvwrapper

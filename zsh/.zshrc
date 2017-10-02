@@ -11,9 +11,24 @@ fi
 # 10ms for key sequences
 KEYTIMEOUT=1
 
-POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
-POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(pyenv rbenv status root_indicator background_jobs time)
-POWERLEVEL9K_MODE='patched-fontconfig'
+# powerlevel9k theme configure
+# POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(dir vcs)
+POWERLEVEL9K_LEFT_PROMPT_ELEMENTS=(os_icon dir vcs)
+POWERLEVEL9K_RIGHT_PROMPT_ELEMENTS=(pyenv rbenv status root_indicator background_jobs)
+# POWERLEVEL9K_MODE='patched-fontconfig'
+POWERLEVEL9K_MODE='awesome-patched'
+POWERLEVEL9K_SHORTEN_DIR_LENGTH=1
+
+POWERLEVEL9K_DIR_HOME_BACKGROUND="black"
+POWERLEVEL9K_DIR_HOME_FOREGROUND="249"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_BACKGROUND="black"
+POWERLEVEL9K_DIR_HOME_SUBFOLDER_FOREGROUND="249"
+POWERLEVEL9K_TIME_BACKGROUND="black"
+POWERLEVEL9K_TIME_FOREGROUND="249"
+POWERLEVEL9K_TIME_FORMAT="%D{%H:%M:%S} \UE12E"
+# temporary fix https://github.com/gabrielelana/awesome-terminal-fonts/issues/38
+POWERLEVEL9K_PYTHON_ICON=$'\U1F40D'
+
 ZSH_THEME="powerlevel9k/powerlevel9k"
 
 ###############################################################################
