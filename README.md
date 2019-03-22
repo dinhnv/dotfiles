@@ -5,7 +5,20 @@ My personal dotfiles
 
 - application directory should be located in home: `~/applications/`
 
-- this repo should be located at home `~/dotfiles` to use stow as convention
+- this repo should be located or symlinked at home `~/.dotfiles`.
+
+- symlinks
+```
+cd dotfiles
+ln -sf $(pwd) ~/.dotfiles
+ln -sf $(pwd)/zshrc ~/.zshrc
+ln -sf $(pwd)/gitconfig ~/.gitconfig
+ln -sf $(pwd)/vimrc~/.vimrc
+ln -sf $(pwd)/tmux.conf~/.tmux.conf
+ln -sf $(pwd)/nvim/init.vim ~/.config/nvim/init.vim
+```
+
+- In my mac, I mapped Caplock => Ctrl
 
 - zsh `sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
 
@@ -45,6 +58,7 @@ My personal dotfiles
     + install for oh-my-zsh: `git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k`
 	+ fonts:
         + use `POWERLEVEL9K_MODE='awesome-patched'`
+	+ `brew install fontforge --with-python`
         + Get `https://github.com/gabrielelana/awesome-terminal-fonts/tree/patching-strategy/patched`
           And save to `~/Library/Fonts`
         + Run `sudo fc-cache -rv`
@@ -70,3 +84,9 @@ https://github.com/ChrisJohnsen/tmux-MacOSX-pasteboard
 `brew install reattach-to-user-namespace`
 
 [Config iterm](https://apple.stackexchange.com/questions/208387/copy-to-clipboard-from-tmux-in-el-capitan)
+
+### Tips
+
+#### vim
+
+`:verbose set conceallevel` to check which plugin to set the variable `conceallevel`

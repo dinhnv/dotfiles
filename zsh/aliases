@@ -1,0 +1,18 @@
+alias ll='ls -lah'
+alias fig='docker-compose'
+alias dinodeploy='fab -f ~/dev/bots/dino_bot.py deploy:b=master'
+alias tmuxd='tmux new -s dev'
+alias redisd='redis-server /usr/local/etc/redis.conf'
+alias tz='python3 ~/work/cryptobot/display_timestamp.py'
+alias vpn='osascript ~/.dotfiles/scripts/tunnelblick.scpt'
+
+# export ARCHFLAGS="-arch x86_64"
+
+# export SSH_KEY_PATH="~/.ssh/rsa_id"
+
+# alias zshconfig="mate ~/.zshrc"
+# alias ohmyzsh="mate ~/.oh-my-zsh"
+alias tailf='tail -f'
+alias vim='nvim'
+alias f='fuck'
+alias ssh='TERM=xterm-256color \ssh'

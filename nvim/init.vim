@@ -6,10 +6,15 @@
 " https://www.gregjs.com/vim/2016/neovim-deoplete-jspc-ultisnips-and-tern-a-config-for-kickass-autocompletion/
 " https://github.com/zenbro/dotfiles/blob/master/.nvimrc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+" hack for tmux
+set t_8f=^[[38;2;%lu;%lu;%lum
+set t_8b=^[[48;2;%lu;%lu;%lum
+
+
 set nocompatible
 
-let g:python_host_prog  = $PYENV_ROOT . '/versions/devtools2/bin/python'
-let g:python3_host_prog = $PYENV_ROOT . '/versions/devtools3/bin/python'
+let g:python_host_prog  = $PYENV_ROOT . '/versions/neovim2/bin/python'
+let g:python3_host_prog = $PYENV_ROOT . '/versions/neovim3/bin/python'
 
 " plug.vim {{{
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
@@ -34,6 +39,10 @@ call plug#begin(expand('~/.config/nvim/plugged'))
   Plug 'joshdick/onedark.vim'
   Plug 'dracula/vim'
   Plug 'altercation/vim-colors-solarized'
+  Plug 'iCyMind/NeoSolarized'
+  Plug 'morhetz/gruvbox'
+  Plug 'sjl/badwolf'
+  " Plug 'chriskempson/base16-vim'
 
   Plug 'Yggdroot/indentLine'
 
@@ -48,6 +57,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
   Plug 'junegunn/vim-easy-align'
   Plug 'michaeljsmith/vim-indent-object' " i (indent): ai, ii
   Plug 'vim-scripts/argtextobj.vim' " a (argument): aa, ia
+  Plug 'vim-scripts/gitignore' " a (argument): aa, ia
   " Plug 'tweekmonster/braceless.vim'
 
   " navigation
@@ -66,6 +76,7 @@ call plug#begin(expand('~/.config/nvim/plugged'))
   Plug 'sheerun/vim-polyglot'  " syntax highlight
   Plug 'tpope/vim-commentary' " gc to comment toggle, eg: gcap
   Plug 'fisadev/vim-isort', { 'for': 'python' }
+  Plug 'mattn/emmet-vim'
 
 call plug#end()
 " }}}
@@ -98,18 +109,21 @@ set autoindent
 set smartindent
 set breakindent
 set smarttab
-set shiftwidth=4 tabstop=4 softtabstop=4
+set shiftwidth=4 tabstop=4 softtabstop=4    " sw ts sts
 set expandtab
 
 set wildmode=list:longest,full    " <Tab> completion, list matches, then longest
 set colorcolumn=80                " highlight column 81th
 set scrolljump=5                  " Lines to scroll when cursor leaves screen
 ret scrolloff=3                   " Minimum lines to keep above and below cursor
-set fileformats=unix,dos,mac
+set fileformats=unix,mac
 set backspace=indent,eol,start    " make backspace behave in a sane manner
 set hidden                        " Allow buffer switching without saving
 set showbreak=↪
-set listchars=tab:›\ ,trail:•,extends:#,nbsp:.
+" set listchars=tab:›\ ,trail:•,extends:#,nbsp:.,eol:¬
+set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬
+hi NonText ctermfg=16 guifg=#4a4a59
+hi SpecialKey ctermfg=16 guifg=#4a4a59
 set list
 set nowrap                        " do not wrap long lines
 set timeoutlen=400                " timeout on keystroking
@@ -119,7 +133,7 @@ set title
 set mouse=a                       " enable mouse support
 
 if has('folding')
-  set foldlevel=0
+  set foldlevelstart=10
   set foldmethod=indent
   set foldnestmax=10              " deepest fold is 10 levels
 endif
@@ -295,11 +309,13 @@ if exists('+termguicolors')
   set termguicolors                   " true color, terminal using
 endif
 
-" set background=light " for the light version
-" let ayucolor="light"  " for light version of theme
-" let ayucolor="mirage" " for mirage version of theme
-" let ayucolor="dark"   " for dark version of theme
-colorscheme dracula
+" base16 colors
+" let base16colorspace=256
+" colorscheme base16-flat
+
+set background=dark
+colorscheme badwolf
+
 " }}}
 
 " plugins config {{{
@@ -321,6 +337,13 @@ nmap ga <Plug>(EasyAlign)
 " NerdTree
 map <C-e> :NERDTreeToggle %<CR>
 map <C-f> :NERDTreeFind<CR>
+let NERDTreeShowHidden = 1
+let NERDTreeQuitOnOpen = 1
+let NERDTreeAutoDeleteBuffer = 1    "  delete the buffer of the file you just deleted with NerdTree
+let NERDTreeDirArrows = 1
+let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git', '.idea', '.vscode']
+" automatically close a tab if the only remaining window is NerdTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
 " EasyMotion
 let g:EasyMotion_do_mapping = 0
@@ -402,6 +425,10 @@ endfunction
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+autocmd FileType html setlocal ts=2 sts=2 sw=2
+autocmd FileType css setlocal ts=2 sts=2 sw=2
+
 " }}}
 
-" vim: ts=2 sw=0 tw=80 foldmarker={,} foldlevel=0 foldmethod=marker
+" vim: ts=2 sw=0 tw=80 foldmarker={,}

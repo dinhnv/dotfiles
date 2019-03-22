@@ -1,0 +1,53 @@
+[user]
+    email = dinhnv.mr@gmail.com
+    name  = dinhnv
+[includeIf "gitdir:~/dena/"]
+    path  = ~/dena/.gitconfig
+[includeIf "gitdir:~/airtrip/"]
+    path  = ~/airtrip/.gitconfig
+[includeIf "gitdir:~/at/"]
+    path  = ~/at/.gitconfig
+[core]
+    excludesfile = ~/.gitignore
+[push]
+    default   = current
+[http]
+    sslVerify = false
+[color]
+    ui        = auto
+[color "branch"]
+    current = yellow bold
+    local = green bold
+    remote = cyan bold
+[color "diff"]
+    meta = yellow bold
+    frag = magenta bold
+    old = red bold
+    new = green bold
+    whitespace = red reverse
+[color "status"]
+    added = green bold
+    changed = yellow bold
+    untracked = red bold
+[diff]
+    tool = vimdiff
+[difftool]
+    prompt = false
+[alias]
+    aa      = add --all
+    df      = diff
+    dc      = diff --cached
+    ds      = diff --stat
+    co      = checkout
+    br      = branch
+    ci      = commit
+    st      = status
+    lg      = log --graph --pretty=format:'%Cred%h%Creset -%C(yellow)%d%Creset %s %Cgreen(%cr) %C(bold blue)<%an>%Creset' --abbrev-commit --date=relative
+    amend   = commit --amend --verbose
+    graph   = log --graph --color --pretty=format:"%C(yellow)%H%C(green)%d%C(reset)%n%x20%cd%n%x20%cn%C(blue)%x20(%ce)%x20%C(cyan)[gpg:%GK%x20%G?]%C(reset)%n%x20%s%n"
+    stat    = status -sb
+    last    = log -1 --stat
+    unstage = reset HEAD --
+    cached  = diff --cached
+    d       = difftool
+    whois = !sh -c 'git log -i -1 --author=\"$1\" --pretty=\"format:%an <%ae>\"' -
