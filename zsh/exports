@@ -30,8 +30,11 @@ if command -v pyenv 1>/dev/null 2>&1; then
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
-    eval "$(pyenv virtualenv-init -)"
+    # eval "$(pyenv virtualenv-init -)"
 fi
+
+export PIPENV_VENV_IN_PROJECT=1
+export PIPENV_IGNORE_VIRTUALENVS=1
 
 
 if [[ "$COLORTERM" == "gnome-terminal" ]]; then
@@ -42,11 +45,11 @@ export XDG_CONFIG_HOME="$HOME/.config"
 export XDG_CACHE_HOME="$HOME/.cache"
 export XDG_DATA_HOME="$HOME/.data"
 export XDG_STATE_HOME="$HOME/.state"
-if [[ "$(uname -s)" == "Darwin" ]]; then
-    export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
-else
-    export JAVA_HOME=/usr/lib/jvm/java-8-oracle
-fi
+# if [[ "$(uname -s)" == "Darwin" ]]; then
+    # export JAVA_HOME="`/usr/libexec/java_home -v 1.8`"
+# else
+    # export JAVA_HOME=/usr/lib/jvm/java-8-oracle
+# fi
 
 if which jenv > /dev/null 2>&1; then eval "$(jenv init -)"; fi
 

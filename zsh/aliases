@@ -13,6 +13,7 @@ alias vpn='osascript ~/.dotfiles/scripts/tunnelblick.scpt'
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
 alias tailf='tail -f'
+# `vi` is still `vi`
 alias vim='nvim'
 alias f='fuck'
 alias ssh='TERM=xterm-256color \ssh'
