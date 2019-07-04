@@ -70,20 +70,42 @@ The repository structure:
       
       brew install pyenv
       brew install pyenv-virtualenv
-      brew install pyenv-virtualenvwrapper
+      # brew install pyenv-virtualenvwrapper
       ```
     + create some virtualenvs:
 
       ```
       pyenv install 3.6.2
-      pyenv virtualenv 3.6.2 devtools3
-      pyenv virtualenv 2.7.13 devtools2
+      pyenv virtualenv 3.7.3 devtools3
+      pyenv virtualenv 2.7.16 devtools2
       pyenv global system devtools2 devtools3
-      pyenv activate devtools2
-      pip install neovim
-      pyenv activate devtools3
-      pip install neovim
+
       ```
+    https://github.com/samoshkin/tmux-config
+
+- NeoVim install and config
+    ```
+    pyenv virtualenv 2.7.16 neovim2
+    pyenv activate neovim2
+    pip install pynvim
+    pip install neovim  # only if needed by third-party software
+
+    pyenv virtualenv 3.7.3 neovim3
+    pyenv activate neovim3
+    pip3 install neovim pynvim
+    pip3 install jedi   # for python source navigation
+    pip3 install black  # for neoformat [python]
+    pip3 install flake8 # for neomake syntax lint [python]
+    ```
+    Inside nvim:
+    ```
+    nvim tmp.txt
+    :Plug install
+    :UpdateRemotePlugins  # for deoplete
+    ```
+    Python coding:
+        + formatter: black
+        + lint: flake8
 
 - zsh theme: [powerlevel9k](https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#step-1-install-powerlevel9k)
     + install for oh-my-zsh: `git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k`
@@ -194,3 +216,6 @@ git log -g
 - `ssh-copy-id user@host` equals to `cat ~/.ssh/id_rsa.pub | ssh user@machine "mkdir ~/.ssh; cat >> ~/.ssh/authorized_keys"`
 - `mkdir /path/xxx && cd $_`: made dir and cd to
 
+### References:
+
+* simple: https://raw.githubusercontent.com/sebbekarlsson/i3/master/.vimrc

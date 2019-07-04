@@ -59,19 +59,6 @@ source "$HOME/.dotfiles/zsh/exports"
 source "$HOME/.dotfiles/zsh/aliases"
 source "$HOME/.dotfiles/zsh/functions"
 
-###########################################
-########      theme conf          #########
-###########################################
-# export SPACESHIP_CHAR_SYMBOL="» "
-# export SPACESHIP_GIT_PREFIX=""
-# export SPACESHIP_GIT_SYMBOL=$'\uE20E '
-# # export SPACESHIP_PROMPT_PREFIXES_SHOW=false
-# export SPACESHIP_GIT_STATUS_UNTRACKED="+"
-# export SPACESHIP_GIT_STATUS_MODIFIED="✘"
-# export SPACESHIP_GIT_STATUS_PREFIX=' '
-# export SPACESHIP_GIT_STATUS_SUFFIX='\0'
-# export SPACESHIP_PYENV_SHOW=true
-
 
 # tabtab source for serverless package
 # uninstall by removing these lines or running `tabtab uninstall serverless`

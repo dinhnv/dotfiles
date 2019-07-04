@@ -30,11 +30,11 @@ if command -v pyenv 1>/dev/null 2>&1; then
     export PYENV_VIRTUALENV_DISABLE_PROMPT=1
     export PATH="$PYENV_ROOT/bin:$PATH"
     eval "$(pyenv init -)"
-    # eval "$(pyenv virtualenv-init -)"
+    eval "$(pyenv virtualenv-init -)"
 fi
 
-export PIPENV_VENV_IN_PROJECT=1
-export PIPENV_IGNORE_VIRTUALENVS=1
+# export PIPENV_VENV_IN_PROJECT=1
+# export PIPENV_IGNORE_VIRTUALENVS=1
 
 
 if [[ "$COLORTERM" == "gnome-terminal" ]]; then
@@ -72,6 +72,20 @@ export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 # lazy load rarely used nvm
 export NVM_DIR="$HOME/.nvm"
 alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
+
+
+###########################################
+########      theme conf          #########
+###########################################
+# export SPACESHIP_CHAR_SYMBOL="» "
+# export SPACESHIP_GIT_PREFIX=""
+# export SPACESHIP_GIT_SYMBOL=$'\uE20E '
+# # export SPACESHIP_PROMPT_PREFIXES_SHOW=false
+# export SPACESHIP_GIT_STATUS_UNTRACKED="+"
+# export SPACESHIP_GIT_STATUS_MODIFIED="✘"
+# export SPACESHIP_GIT_STATUS_PREFIX=' '
+# export SPACESHIP_GIT_STATUS_SUFFIX='\0'
+# export SPACESHIP_PYENV_SHOW=true
 
 # remove duplicate entries
 typeset -U PATH

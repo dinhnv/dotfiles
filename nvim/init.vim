@@ -31,52 +31,57 @@ endif
 " plugins {{{
 call plug#begin(expand('~/.config/nvim/plugged'))
 
-  " UI/Color
-  Plug 'ayu-theme/ayu-vim'
-  Plug 'romainl/flattened'
-  Plug 'mhartington/oceanic-next'
-  Plug 'trevordmiller/nova-vim'
-  Plug 'joshdick/onedark.vim'
-  Plug 'dracula/vim'
-  Plug 'altercation/vim-colors-solarized'
-  Plug 'iCyMind/NeoSolarized'
-  Plug 'morhetz/gruvbox'
-  Plug 'sjl/badwolf'
-  " Plug 'chriskempson/base16-vim'
+" UI/Color
+Plug 'ayu-theme/ayu-vim'
+Plug 'romainl/flattened'
+Plug 'mhartington/oceanic-next'
+Plug 'trevordmiller/nova-vim'
+Plug 'joshdick/onedark.vim'
+Plug 'dracula/vim'
+Plug 'altercation/vim-colors-solarized'
+Plug 'iCyMind/NeoSolarized'
+Plug 'morhetz/gruvbox'
+Plug 'sjl/badwolf'
+" Plug 'chriskempson/base16-vim'
 
-  Plug 'Yggdroot/indentLine'
+Plug 'Yggdroot/indentLine'
 
-  " utils
-  Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-  Plug 'junegunn/fzf.vim'
-  Plug 'tpope/vim-repeat'
+" utils
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'tpope/vim-repeat'
 
-  Plug 'Raimondi/delimitMate'
-  Plug 'tpope/vim-surround'
+Plug 'Raimondi/delimitMate'
+Plug 'tpope/vim-surround'
 
-  Plug 'junegunn/vim-easy-align'
-  Plug 'michaeljsmith/vim-indent-object' " i (indent): ai, ii
-  Plug 'vim-scripts/argtextobj.vim' " a (argument): aa, ia
-  Plug 'vim-scripts/gitignore' " a (argument): aa, ia
-  " Plug 'tweekmonster/braceless.vim'
+Plug 'junegunn/vim-easy-align'
+Plug 'michaeljsmith/vim-indent-object' " i (indent): ai, ii
+Plug 'vim-scripts/argtextobj.vim' " a (argument): aa, ia
+Plug 'vim-scripts/gitignore' " a (argument): aa, ia
+" Plug 'tweekmonster/braceless.vim'
 
-  " navigation
-  Plug 'haya14busa/incsearch.vim'
-  Plug 'easymotion/vim-easymotion'
-  Plug 'terryma/vim-expand-region'
-  Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ] }
-  Plug 'majutsushi/tagbar', { 'on': [ 'TagbarToggle' ]}
-  Plug 'christoomey/vim-tmux-navigator'
+" navigation
+Plug 'haya14busa/incsearch.vim'
+Plug 'easymotion/vim-easymotion'
+Plug 'terryma/vim-expand-region'
+Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ] }
+Plug 'majutsushi/tagbar', { 'on': [ 'TagbarToggle' ]}
+Plug 'christoomey/vim-tmux-navigator'
 
-  " on command
-  Plug 'benekastah/neomake'
-
-  " programming
-  Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-  Plug 'sheerun/vim-polyglot'  " syntax highlight
-  Plug 'tpope/vim-commentary' " gc to comment toggle, eg: gcap
-  Plug 'fisadev/vim-isort', { 'for': 'python' }
-  Plug 'mattn/emmet-vim'
+" [programming]
+" code syntax checker
+Plug 'benekastah/neomake'
+" autocomplete
+Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+Plug 'sheerun/vim-polyglot'  " syntax highlight
+Plug 'tpope/vim-commentary' " `gc` to comment toggle, eg: gcap
+Plug 'mattn/emmet-vim'
+" code format
+Plug 'sbdchd/neoformat'
+" python
+Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
+Plug 'fisadev/vim-isort', { 'for': 'python' }
+Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 call plug#end()
 " }}}
@@ -113,6 +118,9 @@ set shiftwidth=4 tabstop=4 softtabstop=4    " sw ts sts
 set expandtab
 
 set wildmode=list:longest,full    " <Tab> completion, list matches, then longest
+"I don't want the docstring window to popup during completion
+" set completeopt-=preview
+autocmd FileType python setlocal completeopt-=preview
 set colorcolumn=80                " highlight column 81th
 set scrolljump=5                  " Lines to scroll when cursor leaves screen
 ret scrolloff=3                   " Minimum lines to keep above and below cursor
@@ -301,6 +309,11 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-d> <C-w>
 
+" default spaces indent for file types
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+autocmd FileType html setlocal ts=2 sts=2 sw=2
+autocmd FileType css setlocal ts=2 sts=2 sw=2
+
 
 " }}}
 
@@ -318,7 +331,7 @@ colorscheme badwolf
 
 " }}}
 
-" plugins config {{{
+" === Plugins config {{{
 
 let g:indentLine_enabled = 1
 
@@ -334,10 +347,11 @@ xmap ga <Plug>(EasyAlign)
 " motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" NerdTree
+" === NerdTree
 map <C-e> :NERDTreeToggle %<CR>
 map <C-f> :NERDTreeFind<CR>
 let NERDTreeShowHidden = 1
+let g:NERDTreeWinPos="left"
 let NERDTreeQuitOnOpen = 1
 let NERDTreeAutoDeleteBuffer = 1    "  delete the buffer of the file you just deleted with NerdTree
 let NERDTreeDirArrows = 1
@@ -345,7 +359,7 @@ let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git', '.idea', '.vscode']
 " automatically close a tab if the only remaining window is NerdTree
 autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
 
-" EasyMotion
+" === EasyMotion
 let g:EasyMotion_do_mapping = 0
 let g:EasyMotion_smartcase = 1
 let g:EasyMotion_use_upper = 1
@@ -372,10 +386,10 @@ let g:vim_isort_map = '<C-i>'
 
 " fzf
 let g:fzf_action = {
-  \ 'ctrl-t': 'tab split',
-  \ 'ctrl-s': 'split',
-  \ 'ctrl-v': 'vsplit'
-  \ }
+      \ 'ctrl-t': 'tab split',
+      \ 'ctrl-s': 'split',
+      \ 'ctrl-v': 'vsplit'
+      \ }
 nmap <leader>h<leader> :Commands<CR>
 " open, use Tab, S-Tab to select/deselect multiple files
 nnoremap <leader>o :Files<CR>
@@ -385,18 +399,18 @@ nnoremap <leader>e :Files %:p:h<CR>
 nnoremap <leader>b :Buffers<CR>
 imap <C-f> <plug>(fzf-complete-line)
 let g:fzf_colors =
-\ { 'fg':      ['fg', 'Normal'],
-  \ 'bg':      ['bg', 'Normal'],
-  \ 'hl':      ['fg', 'Comment'],
-  \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
-  \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
-  \ 'hl+':     ['fg', 'Statement'],
-  \ 'info':    ['fg', 'PreProc'],
-  \ 'prompt':  ['fg', 'Conditional'],
-  \ 'pointer': ['fg', 'Exception'],
-  \ 'marker':  ['fg', 'Keyword'],
-  \ 'spinner': ['fg', 'Label'],
-  \ 'header':  ['fg', 'Comment'] }
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
 
 " split
 nnoremap <silent> <Leader>s :call fzf#run({
@@ -425,9 +439,27 @@ endfunction
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 
-autocmd FileType javascript setlocal ts=2 sts=2 sw=2
-autocmd FileType html setlocal ts=2 sts=2 sw=2
-autocmd FileType css setlocal ts=2 sts=2 sw=2
+" === neoformat
+" Enable alignment
+let g:neoformat_basic_format_align = 1
+" Enable tab to spaces conversion
+let g:neoformat_basic_format_retab = 1
+" Enable trimmming of trailing whitespace
+let g:neoformat_basic_format_trim = 1
+" let g:neoformat_only_msg_on_error = 1
+let g:neoformat_enabled_python = ['black']
+
+"" === neomake
+call neomake#configure#automake('w')
+let g:neomake_open_list = 2
+
+" === jedi-vim
+" Usage: <leader>d : go to definition, K : check docs, <leader>n : show usage,
+" <leader>r: rename
+" disable autocompletion, cause we use deoplete for completion
+let g:jedi#completions_enabled = 0
+" open the go-to function in split, not another buffer
+let g:jedi#use_splits_not_buffers = "right"
 
 " }}}
 
