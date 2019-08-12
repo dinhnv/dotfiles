@@ -34,103 +34,92 @@ The repository structure:
 
 - this repo should be located or symlinked at `$HOME/.dotfiles`.
 
-- symlinks
-  
-  ```
-  cd dotfiles
-  ln -sf $(pwd) ~/.dotfiles
-  ln -sf $(pwd)/zshrc ~/.zshrc
-  ln -sf $(pwd)/gitconfig ~/.gitconfig
-  ln -sf $(pwd)/vimrc~/.vimrc
-  ln -sf $(pwd)/tmux.conf~/.tmux.conf
-  ln -sf $(pwd)/nvim/init.vim ~/.config/nvim/init.vim
-  ```
-  
-- Personally, I mapped `Caplock` => `Ctrl`
+### symlinks
 
-- **zsh** `sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"`
+link some configuration files 
 
-- **tmux**
+```
+cd dotfiles
+ln -sf $(pwd) ~/.dotfiles
+ln -sf $(pwd)/zshrc ~/.zshrc
+ln -sf $(pwd)/gitconfig ~/.gitconfig
+ln -sf $(pwd)/vimrc~/.vimrc
+ln -sf $(pwd)/tmux.conf~/.tmux.conf
+ln -sf $(pwd)/nvim/init.vim ~/.config/nvim/init.vim
+ln -sf $(pwd)/flake8 ~/.config/flake8
+```
 
-    + linux: should built for the latest version, from https://github.com/tmux/tmux to install or update version (from git repo)
-    
-      ```
-      sh autogen.sh
-      ./configure && make
-      sudo made install
-      ```
+Or
 
-    + macos: `brew install tmux`
-
-- python environment:
-    + pre-requirements
-
-      ```
-      brew install ctags
-      
-      brew install pyenv
-      brew install pyenv-virtualenv
-      # brew install pyenv-virtualenvwrapper
-      ```
-    + create some virtualenvs:
-
-      ```
-      pyenv install 3.6.2
-      pyenv virtualenv 3.7.3 devtools3
-      pyenv virtualenv 2.7.16 devtools2
-      pyenv global system devtools2 devtools3
-
-      ```
-    https://github.com/samoshkin/tmux-config
-
-- NeoVim install and config
-    ```
-    pyenv virtualenv 2.7.16 neovim2
-    pyenv activate neovim2
-    pip install pynvim
-    pip install neovim  # only if needed by third-party software
-
-    pyenv virtualenv 3.7.3 neovim3
-    pyenv activate neovim3
-    pip3 install neovim pynvim
-    pip3 install jedi   # for python source navigation
-    pip3 install black  # for neoformat [python]
-    pip3 install flake8 # for neomake syntax lint [python]
-    ```
-    Inside nvim:
-    ```
-    nvim tmp.txt
-    :Plug install
-    :UpdateRemotePlugins  # for deoplete
-    ```
-    Python coding:
-        + formatter: black
-        + lint: flake8
-
-- zsh theme: [powerlevel9k](https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#step-1-install-powerlevel9k)
-    + install for oh-my-zsh: `git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k`
-    + fonts:
-        + use `POWERLEVEL9K_MODE='awesome-patched'`
-    + `brew install fontforge --with-python`
-        + Get `https://github.com/gabrielelana/awesome-terminal-fonts/tree/patching-strategy/patched`
-          And save to `~/Library/Fonts`
-        + Run `sudo fc-cache -rv`
-        + Edit terminal profile and choose Non-ASCII Font (iterm2) that a font from above repository
-
-- **zsh plugins**: must be installed maually on guide:
-
-    + [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
-    	use Ctrl+E or Ctrl+P to accept suggestion
-    + [zsh-completions](https://github.com/zsh-users/zsh-completions) to add
-      more definitions, i.e: ack, grep, etc.
-
-- `stow` cmd:
+`stow` cmd:
   ```
   stow zsh
   stow git
   stow fonts
   stow tmux
   ```
+
+Personally, I mapped `Caplock` => `Ctrl`
+
+### zsh
+
+```
+sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
+```
+
+### tmux
+
++ linux: should built for the latest version, from https://github.com/tmux/tmux to install or update version (from git repo)
+
+  ```
+  sh autogen.sh
+  ./configure && make
+  sudo made install
+  ```
+
++ macos: `brew install tmux`
++ https://github.com/samoshkin/tmux-config
+
+### python environment:
+
++ pre-requirements
+  ```
+  brew install pyenv
+  brew install pyenv-virtualenv
+  # brew install pyenv-virtualenvwrapper
+  ```
++ create some virtualenvs:
+  ```
+  pyenv install 3.6.2
+  pyenv virtualenv 3.7.3 devtools3
+  pyenv virtualenv 2.7.16 devtools2
+  pyenv global system devtools2 devtools3
+  ```
+
+### Vim/NeoVim
+
+Refer in details [Neovim](neovim.md)
+
+
+### zsh
+
+- [powerlevel9k install instructions](https://github.com/bhilburn/powerlevel9k/wiki/Install-Instructions#step-1-install-powerlevel9k)
+  + install for oh-my-zsh: `git clone https://github.com/bhilburn/powerlevel9k.git ~/.oh-my-zsh/custom/themes/powerlevel9k`
+  + fonts:
+    + use `POWERLEVEL9K_MODE='awesome-patched'`
+  + `brew install fontforge --with-python`
+    + Get `https://github.com/gabrielelana/awesome-terminal-fonts/tree/patching-strategy/patched`
+      And save to `~/Library/Fonts`
+    + Run `sudo fc-cache -rv`
+    + Edit terminal profile and choose Non-ASCII Font (iterm2) that a font from above repository
+
+- **zsh plugins**: must be installed maually on guide:
+  + [zsh-autosuggestions](https://github.com/zsh-users/zsh-autosuggestions)
+  	use Ctrl+E or Ctrl+P to accept suggestion
+  + [zsh-completions](https://github.com/zsh-users/zsh-completions) to add
+    more definitions, i.e: ack, grep, etc.
+
+## Tips
 
 - Macos Sierra Tmux issue:
 
@@ -140,13 +129,8 @@ The repository structure:
 
   [Config iterm](https://apple.stackexchange.com/questions/208387/copy-to-clipboard-from-tmux-in-el-capitan)
 
-### Tips
 
-#### vim
-
-`:verbose set conceallevel` to check which plugin to set the variable `conceallevel`
-
-#### SSL
+### SSL
 https://stackoverflow.com/questions/7580508/getting-chrome-to-accept-self-signed-localhost-certificate/43666288#43666288
 https://github.com/loganstellway/self-signed-ssl
 
@@ -177,7 +161,7 @@ git reflog
 git log -g
 ```
 
-#### Shell
+### Shell
 
 * Some commands are already in terminal after the setup
 
@@ -219,3 +203,4 @@ git log -g
 ### References:
 
 * simple: https://raw.githubusercontent.com/sebbekarlsson/i3/master/.vimrc
+* zsh optimal: https://htr3n.github.io/2018/07/faster-zsh/

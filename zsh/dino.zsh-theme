@@ -5,7 +5,7 @@ function pyenv_prompt_info() {
     if [[ -n "$PYENV_VERSION" ]]; then
         pyenv_version_name="$PYENV_VERSION"
     else
-        # pyenv_version_name="$(pyenv version-name)"
+        pyenv_version_name="$(pyenv version-name)"
         # local pyenv_global="system"
         # local pyenv_root="$(pyenv root)"
         # if [[ -f "${pyenv_root}/version" ]]; then
@@ -30,9 +30,31 @@ function pyenv_prompt_info() {
     fi
 }
 
+function prompt_pyenv() {
+    if [[ -n "$PYENV_VERSION" ]]; then
+        echo "(py:$PYENV_VERSION)"
+    elif [ $commands[pyenv] ]; then
+        local pyenv_version_name="$(pyenv version-name)"
+        local pyenv_global="$(pyenv version-file-read $(pyenv root)/version)"
+        if [[ "${pyenv_version_name}" != "${pyenv_global}" ]]; then
+            echo "(py»$pyenv_version_name)"
+        fi
+    fi
+}
+
 _DIR="%{$fg_bold[blue]%}%2~"
 _PREFIX="%{$fg[green]%}»"
-PROMPT='$_PREFIX $_DIR%{$reset_color%}$(git_prompt_info)$(pyenv_prompt_info)%{$reset_color%}%(!.#.$) '
+SEGMENT_SEPARATOR=$'\ue0b0'
+# %(!.%{$fg[red]%}.%{$fg[green]%})%2~
+local ret_status="%(?:%{$fg[green]%}➜ :%{$fg[red]%}➜ )"
 
-ZSH_THEME_GIT_PROMPT_PREFIX=":%{$fg[red]%}(git:"
-ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"
+# PROMPT='$_PREFIX $_DIR%{$reset_color%}$(git_prompt_info)$(pyenv_prompt_info)%{$reset_color%}%(!.#.$) '
+# PROMPT=$'\n$(ssh_connection)%{$fg_bold[green]%}%n@%m%{$reset_color%}$(my_git_prompt) : %~\n[${ret_status}] %# '
+PROMPT='${ret_status}%2~ %{$reset_color%}%{$fg[blue]%}$(git_prompt_info)%{$fg[cyan]%}$(prompt_pyenv)%{$reset_color%} '
+# git
+# ZSH_THEME_GIT_PROMPT_PREFIX=":%{$fg[red]%}(git:"
+# ZSH_THEME_GIT_PROMPT_SUFFIX=")%{$reset_color%}"
+ZSH_THEME_GIT_PROMPT_PREFIX="("
+ZSH_THEME_GIT_PROMPT_SUFFIX=")"
+ZSH_THEME_GIT_PROMPT_DIRTY=" ✗"
+ZSH_THEME_GIT_PROMPT_CLEAN=" ✔"

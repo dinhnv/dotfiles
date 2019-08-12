@@ -11,7 +11,8 @@ fi
 
 export ZSH=$HOME/.oh-my-zsh
 # export ZSH_THEME="dino"
-ZSH_THEME="robbyrussell"
+# ZSH_THEME="mortalscumbag"
+ZSH_THEME="dino"
 
 plugins=(
     git

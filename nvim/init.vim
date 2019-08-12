@@ -43,6 +43,9 @@ Plug 'iCyMind/NeoSolarized'
 Plug 'morhetz/gruvbox'
 Plug 'sjl/badwolf'
 " Plug 'chriskempson/base16-vim'
+" status line
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
 
 Plug 'Yggdroot/indentLine'
 
@@ -69,15 +72,18 @@ Plug 'majutsushi/tagbar', { 'on': [ 'TagbarToggle' ]}
 Plug 'christoomey/vim-tmux-navigator'
 
 " [programming]
-" code syntax checker
-Plug 'benekastah/neomake'
 " autocomplete
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'sheerun/vim-polyglot'  " syntax highlight
 Plug 'tpope/vim-commentary' " `gc` to comment toggle, eg: gcap
 Plug 'mattn/emmet-vim'
-" code format
-Plug 'sbdchd/neoformat'
+
+" syntax checker
+Plug 'dense-analysis/ale'
+
+" code formatter
+Plug 'Chiel92/vim-autoformat'
+
 " python
 Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
 Plug 'fisadev/vim-isort', { 'for': 'python' }
@@ -118,9 +124,6 @@ set shiftwidth=4 tabstop=4 softtabstop=4    " sw ts sts
 set expandtab
 
 set wildmode=list:longest,full    " <Tab> completion, list matches, then longest
-"I don't want the docstring window to popup during completion
-" set completeopt-=preview
-autocmd FileType python setlocal completeopt-=preview
 set colorcolumn=80                " highlight column 81th
 set scrolljump=5                  " Lines to scroll when cursor leaves screen
 ret scrolloff=3                   " Minimum lines to keep above and below cursor
@@ -202,9 +205,10 @@ inoremap <A-k> <Esc>:m .-2<CR>==gi
 vnoremap <A-j> :m '>+1<CR>gv=gv
 vnoremap <A-k> :m '<-2<CR>gv=gv
 
-" Buffers previous/next
-nnoremap <A-h> :bp<CR>
-nnoremap <A-l> :bn<CR>
+" Buffers previous/next in normal mode
+" Tab: next buffer, Shift-Tab: previous buffer
+nnoremap  <silent>   <Tab>  :bn<CR>
+nnoremap  <silent>   <S-Tab>  :bp<CR>
 
 " Window resize
 nnoremap <C-Left> <C-w>5>
@@ -213,6 +217,10 @@ nnoremap <C-Up> <C-w>5+
 nnoremap <C-Down> <C-w>5-
 
 " Keep search results at the center of screen
+" n: to go next matched result
+" N: go previous
+" *: match current word under cursor to next
+" #: match current word under cursor to previous
 nmap n nzz
 nmap N Nzz
 nmap * *zz
@@ -309,10 +317,14 @@ cnoremap <C-a> <Home>
 cnoremap <C-e> <End>
 cnoremap <C-d> <C-w>
 
-" default spaces indent for file types
+" base on filetype
 autocmd FileType javascript setlocal ts=2 sts=2 sw=2
 autocmd FileType html setlocal ts=2 sts=2 sw=2
 autocmd FileType css setlocal ts=2 sts=2 sw=2
+
+"I don't want the docstring window to popup during completion
+" set completeopt-=preview
+autocmd FileType python setlocal completeopt-=preview
 
 
 " }}}
@@ -332,8 +344,17 @@ colorscheme badwolf
 " }}}
 
 " === Plugins config {{{
+" vim-airline
+let g:airline_theme='deus'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
 
+" indentLine
+" visual between indent levels
 let g:indentLine_enabled = 1
+let g:indentLine_color_term = 239
+let g:indentLine_setConceal = 0     " prevent from hiding markdown or json symbol, like ```
+let g:indentLine_char_list = ['|', '¦', '┆', '┊']
 
 "'haya14busa/incsearch.vim'
 map /  <Plug>(incsearch-forward)
@@ -347,44 +368,7 @@ xmap ga <Plug>(EasyAlign)
 " motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" === NerdTree
-map <C-e> :NERDTreeToggle %<CR>
-map <C-f> :NERDTreeFind<CR>
-let NERDTreeShowHidden = 1
-let g:NERDTreeWinPos="left"
-let NERDTreeQuitOnOpen = 1
-let NERDTreeAutoDeleteBuffer = 1    "  delete the buffer of the file you just deleted with NerdTree
-let NERDTreeDirArrows = 1
-let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git', '.idea', '.vscode']
-" automatically close a tab if the only remaining window is NerdTree
-autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
-
-" === EasyMotion
-let g:EasyMotion_do_mapping = 0
-let g:EasyMotion_smartcase = 1
-let g:EasyMotion_use_upper = 1
-let g:EasyMotion_off_screen_search = 0
-" Smartsign (type `3` and match `3`&`#`)
-let g:EasyMotion_use_smartsign_us = 1
-let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
-map <Leader>f <Plug>(easymotion-s)
-map <Leader>F <Plug>(easymotion-s2)
-
-" Plug 'terryma/vim-expand-region'
-vmap v <Plug>(expand_region_expand)
-vmap <C-v> <Plug>(expand_region_shrink)
-
-" Plug 'majutsushi/tagbar'
-nmap <leader>t :TagbarToggle<CR>
-
-" isort
-let g:vim_isort_map = '<C-i>'
-
-" fzf
+" fzf {{{ 
 let g:fzf_action = {
       \ 'ctrl-t': 'tab split',
       \ 'ctrl-s': 'split',
@@ -434,24 +418,69 @@ function! SearchVisualSelectionWithAg() range
   let &clipboard = old_clipboard
   execute 'Ag' selection
 endfunction
+" }}} end fzf
+
+" === NerdTree
+map <C-e> :NERDTreeToggle %<CR>
+map <C-f> :NERDTreeFind<CR>
+let NERDTreeShowHidden = 1
+let g:NERDTreeWinPos="left"
+let NERDTreeQuitOnOpen = 1
+let NERDTreeAutoDeleteBuffer = 1    "  delete the buffer of the file you just deleted with NerdTree
+let NERDTreeDirArrows = 1
+let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git', '.idea', '.vscode']
+" automatically close a tab if the only remaining window is NerdTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
+" === EasyMotion
+" <leader> j, k, f, l, h to navigate quickly
+let g:EasyMotion_do_mapping = 0
+let g:EasyMotion_smartcase = 1
+let g:EasyMotion_use_upper = 1
+let g:EasyMotion_off_screen_search = 0
+" Smartsign (type `3` and match `3`&`#`)
+let g:EasyMotion_use_smartsign_us = 1
+let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
+map <Leader>l <Plug>(easymotion-lineforward)
+map <Leader>j <Plug>(easymotion-j)
+map <Leader>k <Plug>(easymotion-k)
+map <Leader>h <Plug>(easymotion-linebackward)
+map <Leader>f <Plug>(easymotion-s)
+map <Leader>F <Plug>(easymotion-s2)
+
+" Plug 'terryma/vim-expand-region'
+vmap v <Plug>(expand_region_expand)
+vmap <C-v> <Plug>(expand_region_shrink)
+
+" Plug 'majutsushi/tagbar'
+" <leader> t to open the symbols bar
+nmap <leader>t :TagbarToggle<CR>
+
+" isort
+let g:vim_isort_map = '<C-i>'
 
 " deoplete
 let g:deoplete#enable_at_startup = 1
 let g:deoplete#enable_smart_case = 1
 
-" === neoformat
-" Enable alignment
-let g:neoformat_basic_format_align = 1
-" Enable tab to spaces conversion
-let g:neoformat_basic_format_retab = 1
-" Enable trimmming of trailing whitespace
-let g:neoformat_basic_format_trim = 1
-" let g:neoformat_only_msg_on_error = 1
-let g:neoformat_enabled_python = ['black']
-
-"" === neomake
-call neomake#configure#automake('w')
-let g:neomake_open_list = 2
+" === ale
+"let g:ale_sign_info = 'i'
+"let g:ale_sign_error = '✗'
+"let g:ale_sign_warning = '-'
+" let g:ale_use_global_executables = 1
+let g:ale_python_flake8_executable = g:python3_host_prog 
+let g:ale_python_flake8_options = '-m flake8'
+let g:ale_python_flake8_use_global = 1
+let g:ale_python_black_executable = g:python3_host_prog 
+let g:ale_python_black_options = '-m black'
+let g:ale_python_isort_executable = g:python3_host_prog 
+let g:ale_python_isort_options = '-m isort'
+let g:ale_fix_on_save = 1
+let g:ale_fixers = {
+\   '*': ['remove_trailing_lines', 'trim_whitespace'],
+\   'python': ['black', 'isort'],
+\   'javascript': ['prettier', 'eslint']
+\ }
 
 " === jedi-vim
 " Usage: <leader>d : go to definition, K : check docs, <leader>n : show usage,
