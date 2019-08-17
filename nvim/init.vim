@@ -2,6 +2,8 @@
 " @author: dinhnv
 " @email:  dinhnv.mr@gmail.com
 "
+" vim man: http://vimdoc.sourceforge.net/htmldoc/help.html
+"
 " https://github.com/sittim/configs/blob/master/.config/nvim/init.vim
 " https://www.gregjs.com/vim/2016/neovim-deoplete-jspc-ultisnips-and-tern-a-config-for-kickass-autocompletion/
 " https://github.com/zenbro/dotfiles/blob/master/.nvimrc
@@ -43,6 +45,7 @@ Plug 'iCyMind/NeoSolarized'
 Plug 'morhetz/gruvbox'
 Plug 'sjl/badwolf'
 " Plug 'chriskempson/base16-vim'
+
 " status line
 Plug 'vim-airline/vim-airline'
 Plug 'vim-airline/vim-airline-themes'
@@ -252,12 +255,20 @@ nnoremap <silent> t$ :<C-u>tablast<CR>
 nnoremap <silent> tp :<C-u>tabprevious<CR>
 nnoremap <silent> tn :<C-u>tabnext<CR>
 
-" Duplicate lines
+" Duplicate lines <lead>d
+" normal map may confict with jedi-vim goto mapping
 nnoremap <leader>d m`YP``
 vnoremap <leader>d YPgv
 
+" Fold
+" zM: close all folds (m: more)
+" zC: close all folds under cursor recursively
+" zR: open all folds (r: reduce)
+" zO: open all folds under cursor recursively
 " Focus the current fold by closing all others
-nnoremap z<CR> zMza
+" z<enter> to fold others
+" zr to unfold all
+nnoremap z<CR> zMzr
 
 " Windows
 " nnoremap  [Window]   <Nop>
@@ -286,14 +297,15 @@ cmap w!! w !sudo tee % >/dev/null<CR>:e!<CR><CR>
 xnoremap s :s//g<Left><Left>
 nnoremap s :%s/\<<C-r><C-w>\>//g<Left><Left>
 
-" Fast saving
+" Fast saving using <leader> w
 nnoremap <leader>w :w<CR>
 vnoremap <leader>w <Esc>:w<CR>
 
 " macro, use Q instead of q
 nnoremap Q q
-" quickly close
-nnoremap <silent><expr> q winnr('$') != 1 ? ':<C-u>close<CR>' : ''
+" quickly close window
+" nnoremap <silent><expr> q winnr('$') != 1 ? ':<C-u>close<CR>' : ''
+nnoremap <silent><expr> q winnr('$') != 1 ? ':<C-u>bd<CR>' : ''
 
 " reload
 nnoremap <leader>r :set autoread <cr> :checkt <cr>
@@ -334,12 +346,9 @@ if exists('+termguicolors')
   set termguicolors                   " true color, terminal using
 endif
 
-" base16 colors
-" let base16colorspace=256
-" colorscheme base16-flat
-
 set background=dark
-colorscheme badwolf
+let g:gruvbox_invert_selection = 0
+colorscheme gruvbox
 
 " }}}
 
@@ -368,7 +377,7 @@ xmap ga <Plug>(EasyAlign)
 " motion/text object (e.g. gaip)
 nmap ga <Plug>(EasyAlign)
 
-" fzf {{{ 
+" fzf {{{
 let g:fzf_action = {
       \ 'ctrl-t': 'tab split',
       \ 'ctrl-s': 'split',
@@ -396,16 +405,18 @@ let g:fzf_colors =
       \ 'spinner': ['fg', 'Label'],
       \ 'header':  ['fg', 'Comment'] }
 
-" split
-nnoremap <silent> <Leader>s :call fzf#run({
+" consisted with tmux
+" <leader>- split
+nnoremap <silent> <Leader>- :call fzf#run({
       \   'down': '40%',
       \   'sink': 'split' })<CR>
 " vsplit, not use `vertical botright split`
-nnoremap <silent> <Leader>v :call fzf#run({
+nnoremap <silent> <Leader>/ :call fzf#run({
       \   'right': winwidth('.') / 2,
       \   'sink':  'vsplit' })<CR>
 
-nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
+" / saved for split window
+"nnoremap <silent> <leader>/ :execute 'Ag ' . input('Ag/')<CR>
 vnoremap <silent> <leader>/ :call SearchVisualSelectionWithAg()<CR>
 function! SearchVisualSelectionWithAg() range
   let old_reg = getreg('"')
@@ -454,7 +465,7 @@ vmap <C-v> <Plug>(expand_region_shrink)
 
 " Plug 'majutsushi/tagbar'
 " <leader> t to open the symbols bar
-nmap <leader>t :TagbarToggle<CR>
+nmap <F8>   :TagbarToggle<CR>
 
 " isort
 let g:vim_isort_map = '<C-i>'
@@ -468,12 +479,13 @@ let g:deoplete#enable_smart_case = 1
 "let g:ale_sign_error = '✗'
 "let g:ale_sign_warning = '-'
 " let g:ale_use_global_executables = 1
-let g:ale_python_flake8_executable = g:python3_host_prog 
+let g:ale_python_flake8_executable = g:python3_host_prog
 let g:ale_python_flake8_options = '-m flake8'
 let g:ale_python_flake8_use_global = 1
-let g:ale_python_black_executable = g:python3_host_prog 
-let g:ale_python_black_options = '-m black'
-let g:ale_python_isort_executable = g:python3_host_prog 
+let g:ale_python_black_executable = g:python3_host_prog
+" fucking the author, he is tenacious to change to single quote
+let g:ale_python_black_options = '-m black --skip-string-normalization'
+let g:ale_python_isort_executable = g:python3_host_prog
 let g:ale_python_isort_options = '-m isort'
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
@@ -488,7 +500,7 @@ let g:ale_fixers = {
 " disable autocompletion, cause we use deoplete for completion
 let g:jedi#completions_enabled = 0
 " open the go-to function in split, not another buffer
-let g:jedi#use_splits_not_buffers = "right"
+" let g:jedi#use_splits_not_buffers = "right"
 
 " }}}
 

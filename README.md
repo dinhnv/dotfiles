@@ -36,7 +36,7 @@ The repository structure:
 
 ### symlinks
 
-link some configuration files 
+link some configuration files
 
 ```
 cd dotfiles
@@ -61,6 +61,15 @@ Or
 
 Personally, I mapped `Caplock` => `Ctrl`
 
+### Fonts
+
+Fire Code is my choice
+
+```
+brew tap homebrew/cask-fonts
+brew cask install font-fira-code
+```
+
 ### zsh
 
 ```
@@ -79,6 +88,12 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 
 + macos: `brew install tmux`
 + https://github.com/samoshkin/tmux-config
++ hotkeys
+    ```
+    <leader> w: show windows
+    <leader> n: next window
+    <leader> <space> : switch layout
+    ```
 
 ### python environment:
 
@@ -142,7 +157,7 @@ chmod +x self-signed-tls
 ./self-signed-tls
 ```
 
-add to nginx to use 
+add to nginx to use
 
 ```
     ssl_certificate     /Users/dino/.certs/local.skygate.co.jp.crt;
@@ -189,7 +204,7 @@ git log -g
 - `[command] <Ctrl+u> [command] <Ctrl+y>`: typing command, check something, continue to type command
     i.e:
     ```
-    cat /var/log/app/application.log | grep 
+    cat /var/log/app/application.log | grep
     Ctrl+u
     grep "uid" application.yml
     Ctrl+y
