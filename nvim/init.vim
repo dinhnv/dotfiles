@@ -8,6 +8,8 @@
 " https://www.gregjs.com/vim/2016/neovim-deoplete-jspc-ultisnips-and-tern-a-config-for-kickass-autocompletion/
 " https://github.com/zenbro/dotfiles/blob/master/.nvimrc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
+let iterm_profile = $ITERM_PROFILE
+
 " hack for tmux
 set t_8f=^[[38;2;%lu;%lu;%lum
 set t_8b=^[[48;2;%lu;%lu;%lum
@@ -275,7 +277,7 @@ nnoremap z<CR> zMzr
 " nmap      s [Window]
 nnoremap <silent> [Window]s  :<C-u>split<CR>
 nnoremap <silent> [Window]v  :<C-u>vsplit<CR>
-nnoremap <silent> [Window]z  :<C-u>only<CR>
+noremap <silent> [Window]z  :<C-u>only<CR>
 nnoremap <silent> [Window]x  :<C-u>call <SID>BufferEmpty()<CR>
 " Split current buffer
 nnoremap <silent> [Window]bs :split<CR>:wincmd p<CR>:e#<CR>
@@ -346,15 +348,21 @@ if exists('+termguicolors')
   set termguicolors                   " true color, terminal using
 endif
 
-set background=dark
-let g:gruvbox_invert_selection = 0
-colorscheme gruvbox
+if iterm_profile == 'dark'
+  set background=dark
+  let g:gruvbox_invert_selection = 0
+  colorscheme dracula
+else
+  set background=light
+  let g:gruvbox_invert_selection = 0
+  colorscheme gruvbox
+endif
 
 " }}}
 
 " === Plugins config {{{
 " vim-airline
-let g:airline_theme='deus'
+let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
 

@@ -60,7 +60,7 @@ function open_command() {
   # define the open command
   case "$OSTYPE" in
     darwin*)  open_cmd='open' ;;
-    cygwin*)  open_cmd='cygstart' ;;
+cygwin*)  open_cmd='cygstart' ;;
     linux*)   open_cmd='xdg-open' ;;
     msys*)    open_cmd='start ""' ;;
     *)        echo "Platform $OSTYPE not supported"
@@ -74,4 +74,17 @@ function open_command() {
   else
     nohup $open_cmd "$@" &>/dev/null
   fi
+}
+
+function color_switch() {
+  echo -ne "\033]50;SetProfile=$1\a"
+  export ITERM_PROFILE=$1
+}
+
+function lightmode() {
+    color_switch "light"
+}
+
+function darkmode() {
+    color_switch "dark"
 }

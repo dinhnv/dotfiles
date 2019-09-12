@@ -105,7 +105,7 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
   ```
 + create some virtualenvs:
   ```
-  pyenv install 3.6.2
+  pyenv install 3.7.2
   pyenv virtualenv 3.7.3 devtools3
   pyenv virtualenv 2.7.16 devtools2
   pyenv global system devtools2 devtools3
