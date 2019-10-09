@@ -46,6 +46,7 @@ Plug 'altercation/vim-colors-solarized'
 Plug 'iCyMind/NeoSolarized'
 Plug 'morhetz/gruvbox'
 Plug 'sjl/badwolf'
+Plug 'jonathanfilip/vim-lucius'
 " Plug 'chriskempson/base16-vim'
 
 " status line
@@ -138,8 +139,9 @@ set hidden                        " Allow buffer switching without saving
 set showbreak=↪
 " set listchars=tab:›\ ,trail:•,extends:#,nbsp:.,eol:¬
 set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬
-hi NonText ctermfg=16 guifg=#4a4a59
-hi SpecialKey ctermfg=16 guifg=#4a4a59
+highlight NonText ctermfg=16 guifg=#4a4a59
+highlight SpecialKey ctermfg=16 guifg=#4a4a59
+highlight Normal ctermbg=NONE guibg=NONE
 set list
 set nowrap                        " do not wrap long lines
 set timeoutlen=400                " timeout on keystroking
@@ -348,14 +350,18 @@ if exists('+termguicolors')
   set termguicolors                   " true color, terminal using
 endif
 
+" let g:lucius_contrast='low'
+" let g:gruvbox_invert_selection = 0
+" let g:lucius_high_contrast = 1
+" let g:lucius_style = iterm_profile
+" let g:lucius_no_term_bg = 0
+let &background=iterm_profile
 if iterm_profile == 'dark'
-  set background=dark
-  let g:gruvbox_invert_selection = 0
-  colorscheme dracula
+  colorscheme lucius
+  LuciusDarkHighContrast
 else
-  set background=light
-  let g:gruvbox_invert_selection = 0
-  colorscheme gruvbox
+  colorscheme lucius
+  LuciusLightHighContrast
 endif
 
 " }}}
@@ -365,6 +371,8 @@ endif
 let g:airline_theme='gruvbox'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
+let g:airline_solarized_bg='dark'
+" let g:airline_powerline_fonts = 1
 
 " indentLine
 " visual between indent levels
