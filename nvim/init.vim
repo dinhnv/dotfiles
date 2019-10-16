@@ -47,6 +47,7 @@ Plug 'iCyMind/NeoSolarized'
 Plug 'morhetz/gruvbox'
 Plug 'sjl/badwolf'
 Plug 'jonathanfilip/vim-lucius'
+Plug 'cocopon/iceberg.vim'
 " Plug 'chriskempson/base16-vim'
 
 " status line
@@ -200,8 +201,8 @@ xnoremap < <gv
 xnoremap > >gv|
 nnoremap > >>_
 nnoremap < <<_
-vnoremap <Tab> >gv|
-vnoremap <S-Tab> <gv
+"vnoremap <Tab> >gv|
+"vnoremap <S-Tab> <gv
 
 " move visual block
 vnoremap . :norm.<CR>
@@ -368,10 +369,10 @@ endif
 
 " === Plugins config {{{
 " vim-airline
-let g:airline_theme='gruvbox'
+let g:airline_theme='solarized'
 let g:airline#extensions#tabline#enabled = 1
 let g:airline#extensions#tabline#buffer_nr_show = 1
-let g:airline_solarized_bg='dark'
+" let g:airline_solarized_bg='light'
 " let g:airline_powerline_fonts = 1
 
 " indentLine

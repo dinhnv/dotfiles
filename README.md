@@ -1,35 +1,5 @@
 # dotfiles
 
-The repository structure:
-
-```
-.
-├── ./LICENSE
-├── ./Makefile
-├── ./README.md
-├── ./fonts
-├── ./gitconfig
-├── ./nvim
-│   └── ./nvim/init.vim
-├── ./scripts
-│   ├── ./scripts/freq_update.sh
-│   ├── ./scripts/generate_ssl_cert.sh
-│   ├── ./scripts/ssl.conf
-│   ├── ./scripts/test_truecolor.sh
-│   ├── ./scripts/totp_pw.py
-│   └── ./scripts/tunnelblick.scpt
-├── ./tmux.conf
-├── ./vimrc
-├── ./zsh
-│   ├── ./zsh/aliases
-│   ├── ./zsh/dino.zsh-theme
-│   ├── ./zsh/exports
-│   └── ./zsh/functions
-└── ./zshrc
-```
-
-
-
 ## Setup
 
 - this repo should be located or symlinked at `$HOME/.dotfiles`.
@@ -113,7 +83,7 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 
 ### Vim/NeoVim
 
-Refer in details [Neovim](neovim.md)
+Refer in details [Vim/Neovim](vim.md)
 
 
 ### zsh
@@ -134,6 +104,12 @@ Refer in details [Neovim](neovim.md)
   + [zsh-completions](https://github.com/zsh-users/zsh-completions) to add
     more definitions, i.e: ack, grep, etc.
 
+### Ultilities:
+
+```
+brew install thefuck  # correct your previous command
+brew install z        # jump to frequency directories
+```
 ## Tips
 
 - Macos Sierra Tmux issue:

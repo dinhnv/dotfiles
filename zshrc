@@ -1,7 +1,7 @@
 # Readmore samples: https://github.com/zsh-users/antigen/wiki/In-the-wild
 # If you come from bash you might have to change your $PATH.
 # export PATH=$HOME/bin:/usr/local/bin:$PATH
-# Tuning zsh 
+# Tuning zsh
 # https://jb-blog.readthedocs.io/en/latest/posts/0032-debugging-zsh-startup-time.html
 # https://carlosbecker.com/posts/speeding-up-zsh/
 # ZSH_PROF=1 zsh -ic zprof
@@ -49,11 +49,16 @@ if [[ -f "$HOME/.zsh_local" ]]; then
   source "$HOME/.zsh_local"
 fi
 
+# utils
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+# correct commands
 if which thefuck >/dev/null 2>&1; then
     eval $(thefuck --alias)
 fi
+
+# jump
+. /usr/local/etc/profile.d/z.sh
 
 
 source "$HOME/.dotfiles/zsh/exports"
