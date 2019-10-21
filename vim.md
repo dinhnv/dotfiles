@@ -51,3 +51,34 @@
 `<silent>` : defines that when you execute this mapping, the command will not be echoed on the command line.
 `<buffer>` : restricts the command to work only on the current buffer
 `<special>` : notation defines mapping for special keys (eg: F12)
+
+## Keymap
+
+Resize windows:
+```
+"Max out the height of the current split
+Ctrl+w _
+
+"Max out the width of the current split
+Ctrl+w |
+
+"Normalize all split sizes, which is very handy when resizing terminal
+Ctrl+w =
+```
+
+Wwap windows:
+```
+"Swap top/bottom or left/right split
+Ctrl+W R
+
+"Break out current window into a new tabview
+Ctrl+W T
+
+"Close every window in the current tabview but the current one
+Ctrl+W o
+```
+
+Search:
+```
+:Ag
+```
