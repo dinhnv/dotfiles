@@ -41,6 +41,7 @@ set hidden                        " Allow buffer switching without saving
 set showbreak=↪
 set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬
 
+set wildmenu                      " visual autocomplete for command menu
 set wildmode=list:longest,full    " <Tab> completion, list matches, then longest
 set colorcolumn=80                " highlight column 81th
 set scrolljump=5                  " Lines to scroll when cursor leaves screen
@@ -77,7 +78,20 @@ xnoremap > >gv|
 nnoremap > >>_
 nnoremap < <<_
 
+" save with sudo w!!
+cmap w!! w !sudo tee % >/dev/null<CR>:e!<CR><CR>
+
+" Quick substitute
+xnoremap s :s//g<Left><Left>
+nnoremap s :%s/\<<C-r><C-w>\>//g<Left><Left>
+
+" Fast saving using <leader> w
+nnoremap <leader>w :w<CR>
+vnoremap <leader>w <Esc>:w<CR>
+
+
 " WINDOWS
+" use fzf plugin
 " split window (consisted with tmux)
 nnoremap <silent> <Leader>- :call fzf#run({
       \   'down': '40%',
@@ -122,7 +136,17 @@ nnoremap <silent> $ g$
 
 nnoremap <leader>o :Files<CR>
 
-" project
+
+" base on filetype
+autocmd FileType javascript setlocal ts=2 sts=2 sw=2
+autocmd FileType html setlocal ts=2 sts=2 sw=2
+autocmd FileType css setlocal ts=2 sts=2 sw=2
+
+"I don't want the docstring window to popup during completion
+" set completeopt-=preview
+autocmd FileType python setlocal completeopt-=preview
+
+
 
 " plugin config
 let g:python_host_prog  = $PYENV_ROOT . '/versions/neovim2/bin/python'
@@ -139,6 +163,43 @@ if !filereadable(vimplug_exists)
   autocmd VimEnter * PlugInstall
 endif
 " }}}
+
+
+" FZF
+let g:fzf_colors =
+      \ { 'fg':      ['fg', 'Normal'],
+      \ 'bg':      ['bg', 'Normal'],
+      \ 'hl':      ['fg', 'Comment'],
+      \ 'fg+':     ['fg', 'CursorLine', 'CursorColumn', 'Normal'],
+      \ 'bg+':     ['bg', 'CursorLine', 'CursorColumn'],
+      \ 'hl+':     ['fg', 'Statement'],
+      \ 'info':    ['fg', 'PreProc'],
+      \ 'prompt':  ['fg', 'Conditional'],
+      \ 'pointer': ['fg', 'Exception'],
+      \ 'marker':  ['fg', 'Keyword'],
+      \ 'spinner': ['fg', 'Label'],
+      \ 'header':  ['fg', 'Comment'] }
+
+" status line: vim-airline
+let g:airline_theme='solarized'
+let g:airline#extensions#tabline#enabled = 1
+let g:airline#extensions#tabline#buffer_nr_show = 1
+" let g:airline_solarized_bg='light'
+" let g:airline_powerline_fonts = 1
+
+
+" NerdTree
+map <C-e> :NERDTreeToggle %<CR>
+map <C-f> :NERDTreeFind<CR>
+let NERDTreeShowHidden = 1
+let g:NERDTreeWinPos="left"
+let NERDTreeQuitOnOpen = 1
+let NERDTreeAutoDeleteBuffer = 1    "  delete the buffer of the file you just deleted with NerdTree
+let NERDTreeDirArrows = 1
+let NERDTreeIgnore = ['\.pyc$', '__pycache__', '.git', '.idea', '.vscode']
+" automatically close a tab if the only remaining window is NerdTree
+autocmd bufenter * if (winnr("$") == 1 && exists("b:NERDTreeType") && b:NERDTreeType == "primary") | q | endif
+
 
 " EasyMotion
 " <leader> j, k, f, l, h to navigate quickly
@@ -196,9 +257,14 @@ let g:jedi#completions_enabled = 0
 call plug#begin(expand('~/.config/nvim/plugged'))
 
 Plug 'jonathanfilip/vim-lucius'
+Plug 'lifepillar/vim-solarized8'
+
+" status line
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+
 Plug 'ervandew/supertab'
-
-
 Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
 Plug 'sheerun/vim-polyglot'  " syntax highlight
 Plug 'tpope/vim-commentary' " `gc` to comment toggle, eg: gcap
@@ -231,10 +297,12 @@ endif
 " colorscheme options
 let iterm_profile = $ITERM_PROFILE
 let &background=iterm_profile
-if iterm_profile == 'dark'
-  colorscheme lucius
-  LuciusDarkHighContrast
-else
-  colorscheme lucius
-  LuciusLightHighContrast
-endif
+
+" if iterm_profile == 'dark'
+" colorscheme lucius
+" LuciusDarkHighContrast
+" else
+colorscheme lucius
+" LuciusLightHighContrast
+" endif
+" colorscheme solarized8

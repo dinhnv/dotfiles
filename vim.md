@@ -22,6 +22,7 @@
 - ALE plugin for code linting (flake8, eslint)
 - deoplete for autocompletion
 
+
 ### Python
 
 - formatter: black

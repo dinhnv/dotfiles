@@ -85,6 +85,16 @@ sh -c "$(curl -fsSL https://raw.github.com/robbyrussell/oh-my-zsh/master/tools/i
 
 Refer in details [Vim/Neovim](vim.md)
 
+### Iterm2
+
+to set iterm2 in favor of Terminal app Novel colorscheme:
+
+- Background: 223 219 195
+- Checked "Draw bold text in bold font"
+- "Use thin strokes for anti-aliased text" => "On Rentina Displays" (or never)
+- Checked "Enable subpixel anti-aliasing"
+- Checked "Anti-aliased"
+
 
 ### zsh
 
