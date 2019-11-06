@@ -67,7 +67,7 @@ Ctrl+w |
 Ctrl+w =
 ```
 
-Wwap windows:
+Swap windows:
 ```
 "Swap top/bottom or left/right split
 Ctrl+W R

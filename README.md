@@ -40,6 +40,22 @@ brew tap homebrew/cask-fonts
 brew cask install font-fira-code
 ```
 
+
+**Thin stroke font rendering (macOS only):**
+
+Thin strokes are suitable for retina displays, but for non-retina screens
+it is recommended to set `use_thin_strokes` to `false`
+
+macOS >= 10.14.x:
+
+If the font quality on non-retina display looks bad then set
+`use_thin_strokes` to `true` and enable font smoothing by running the
+following command:
+  `defaults write -g CGFontRenderingFontSmoothingDisabled -bool NO`
+
+This is a global setting and will require a log out or restart to take
+effect.
+
 ### zsh
 
 ```

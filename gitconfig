@@ -1,12 +1,8 @@
 [user]
     email = dinhnv.mr@gmail.com
     name  = dinhnv
-[includeIf "gitdir:~/dena/"]
-    path  = ~/dena/.gitconfig
-[includeIf "gitdir:~/airtrip/"]
-    path  = ~/airtrip/.gitconfig
-[includeIf "gitdir:~/at/"]
-    path  = ~/at/.gitconfig
+[includeIf "gitdir:~/dinokaiser/"]
+    path  = ~/dinokaiser/.gitconfig
 [core]
     excludesfile = ~/.gitignore
 [push]

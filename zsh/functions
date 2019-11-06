@@ -95,3 +95,11 @@ function ide() {
     tmux split-window -v -p 25
     tmux split-window -h -p 50
 }
+
+#nvm() {
+  # echo "🚨 NVM not loaded! Loading now..."
+  # unset -f nvm
+  # export NVM_PREFIX=$(brew --prefix nvm)
+  # [ -s "$NVM_PREFIX/nvm.sh" ] && . "$NVM_PREFIX/nvm.sh"
+  # nvm "$@"
+#}
