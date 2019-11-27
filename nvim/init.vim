@@ -15,7 +15,7 @@ set ai
 set number
 set hlsearch
 set ruler
-set autochdir
+" set autochdir
 set incsearch                     " Find as you type search
 set hlsearch
 set ignorecase smartcase          " Case insensitive search
@@ -41,6 +41,8 @@ set hidden                        " Allow buffer switching without saving
 set showbreak=↪
 set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬
 
+" Better display for messages
+set cmdheight=2
 set wildmenu                      " visual autocomplete for command menu
 set wildmode=list:longest,full    " <Tab> completion, list matches, then longest
 set colorcolumn=80                " highlight column 81th
@@ -50,9 +52,28 @@ set scrolloff=3                   " Minimum lines to keep above and below cursor
 
 set timeoutlen=400                " timeout on keystroking
 set ttimeoutlen=0
-set updatetime=1500               " Idle time to write swap
+set updatetime=300               " Idle time to write swap
 set title
 set mouse=a                       " enable mouse support
+" don't give |ins-completion-menu| messages.
+set shortmess+=c
+"set signcolumn=yes
+
+if has('folding')
+  set foldlevelstart=10
+  set foldmethod=indent
+  set foldnestmax=10              " deepest fold is 10 levels
+endif
+
+" Fold
+" zM: close all folds (m: more)
+" zC: close all folds under cursor recursively
+" zR: open all folds (r: reduce)
+" zO: open all folds under cursor recursively
+" Focus the current fold by closing all others
+" z<enter> to fold others
+" zr to unfold all
+nnoremap z<CR> zMzr
 
 " pass from system
 if has('clipboard')
@@ -223,8 +244,8 @@ vmap <C-v> <Plug>(expand_region_shrink)
 
 " ale
 "" Move between linting errors
-nnoremap ]r :ALENextWrap<CR>
-nnoremap [r :ALEPreviousWrap<CR>
+nnoremap <C-k> :ALENextWrap<CR>
+nnoremap <C-j> :ALEPreviousWrap<CR>
 let g:ale_fix_on_save = 1
 let g:ale_fixers = {
 \   '*': ['remove_trailing_lines', 'trim_whitespace'],
@@ -252,12 +273,21 @@ let g:deoplete#enable_smart_case = 1
 " disable autocompletion, cause we use deoplete for completion
 let g:jedi#completions_enabled = 0
 
+" Remap keys for gotos
+nmap <silent> gd <Plug>(coc-definition)
+nmap <silent> gy <Plug>(coc-type-definition)
+nmap <silent> gi <Plug>(coc-implementation)
+nmap <silent> gr <Plug>(coc-references)
+
 
 " plugins
 call plug#begin(expand('~/.config/nvim/plugged'))
 
+" ui/theme
 Plug 'jonathanfilip/vim-lucius'
 Plug 'lifepillar/vim-solarized8'
+Plug 'tomasr/molokai'
+
 
 " status line
 Plug 'vim-airline/vim-airline'
@@ -266,19 +296,24 @@ Plug 'vim-airline/vim-airline-themes'
 Plug 'tpope/vim-surround'
 
 Plug 'ervandew/supertab'
-Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-Plug 'sheerun/vim-polyglot'  " syntax highlight
-Plug 'tpope/vim-commentary' " `gc` to comment toggle, eg: gcap
+" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
+" autocomplete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+
+" `gc` to comment toggle, eg: gcap
+Plug 'tpope/vim-commentary'
+
+" Syntax Highlighting And Indentation For 100+ Languages
+Plug 'sheerun/vim-polyglot'
 " syntax checker
 Plug 'dense-analysis/ale'
-
 " code formatter
 Plug 'Chiel92/vim-autoformat'
 
 " python
-Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
+"Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
 Plug 'fisadev/vim-isort', { 'for': 'python' }
-Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+"Plug 'davidhalter/jedi-vim', { 'for': 'python' }
 
 " navigation
 Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
@@ -302,8 +337,6 @@ let &background=iterm_profile
 " if iterm_profile == 'dark'
 " colorscheme lucius
 " LuciusDarkHighContrast
-" else
-colorscheme lucius
-" LuciusLightHighContrast
 " endif
-" colorscheme solarized8
+let g:molokai_original = 1
+colorscheme molokai

@@ -96,6 +96,11 @@ function ide() {
     tmux split-window -h -p 50
 }
 
+# memory usage
+function pmem() {
+    ps -o pid,ppid,pgid,%cpu,%mem,rss,comm | awk 'BEGIN {OFS = "\t"} NR>1 {$6=int(100 * $6/1024)/100"M";}{ print;}'
+}
+
 #nvm() {
   # echo "🚨 NVM not loaded! Loading now..."
   # unset -f nvm

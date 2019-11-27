@@ -21,6 +21,10 @@
   ```
 - ALE plugin for code linting (flake8, eslint)
 - deoplete for autocompletion
+- coc.nvim for autocompletion:
+    ```
+    :CocInstall coc-tsserver coc-json coc-html coc-css coc-python
+    ```
 
 
 ### Python
