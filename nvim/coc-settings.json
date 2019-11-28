@@ -40,10 +40,8 @@
   "python.linting.pylintEnabled": false,
   "python.linting.flake8Enabled": true,
   "python.linting.flake8Args": ["--ignore=E24,W504", "--verbose"],
-  "python.linting.flake8Path": "/Users/dinhnv/.pyenv/shims/flake8",
   "python.sortImports.args": ["-rc", "--atomic"],
   "python.formatting.provider": "black",
   "python.formatting.blackArgs": ["--line-length", "100", "--skip-string-normalization"],
-  "python.formatting.blackPath": "/Users/dinhnv/.pyenv/shims/black",
-  "python.jediPath": "/Users/dinhnv/.pyenv/versions/3.7.3/lib/python3.7/site-packages/"
+  "python.pythonPath": "/Users/dinhnv/.pyenv/versions/3.7.3/bin/python"
 }
