@@ -5,6 +5,69 @@ let mapleader = "\<Space>"
 let g:mapleader = "\<Space>"
 
 
+let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
+if !filereadable(vimplug_exists)
+  echo "Installing Vim-Plug..."
+  echo ""
+  silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
+  let g:not_finish_vimplug = "yes"
+
+  autocmd VimEnter * PlugInstall
+endif
+
+" ┌─────────┐
+" │ Plugins │
+" └─────────┘
+
+call plug#begin(expand('~/.config/nvim/plugged'))
+
+" ui/theme
+Plug 'jonathanfilip/vim-lucius'
+Plug 'lifepillar/vim-solarized8'
+Plug 'tomasr/molokai'
+" icons
+Plug 'ryanoasis/vim-devicons'
+
+" status line
+Plug 'vim-airline/vim-airline'
+Plug 'vim-airline/vim-airline-themes'
+
+" `gc` to code comment toggle, eg: gcap
+Plug 'tpope/vim-commentary'
+
+" autocomplete
+Plug 'neoclide/coc.nvim', {'branch': 'release'}
+" Syntax Highlighting And Indentation For 100+ Languages
+Plug 'sheerun/vim-polyglot'
+" code formatter
+" Plug 'Chiel92/vim-autoformat'
+
+" python
+"Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
+Plug 'fisadev/vim-isort', { 'for': 'python' }
+"Plug 'davidhalter/jedi-vim', { 'for': 'python' }
+
+" navigation
+Plug 'ervandew/supertab'
+Plug 'tpope/vim-surround'
+Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+Plug 'junegunn/fzf.vim'
+Plug 'christoomey/vim-tmux-navigator'
+Plug 'easymotion/vim-easymotion'
+Plug 'terryma/vim-expand-region'
+Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ] }
+
+call plug#end()
+
+set pyxversion=3
+
+let g:python_host_prog  = $PYENV_ROOT . '/versions/neovim2/bin/python'
+let g:python3_host_prog = $PYENV_ROOT . '/versions/neovim3/bin/python'
+
+
+" ┌──────────┐
+" │ Settings │
+" └──────────┘
 syntax on
 filetype plugin indent on         " Indent and plugins by filetype
 
@@ -42,7 +105,7 @@ set showbreak=↪
 set listchars=tab:▶-,trail:•,extends:»,precedes:«,eol:¬
 
 " Better display for messages
-set cmdheight=2
+" set cmdheight=2
 set wildmenu                      " visual autocomplete for command menu
 set wildmode=list:longest,full    " <Tab> completion, list matches, then longest
 set colorcolumn=80                " highlight column 81th
@@ -65,6 +128,11 @@ if has('folding')
   set foldnestmax=10              " deepest fold is 10 levels
 endif
 
+
+" ┌──────────────┐
+" │ Key Mappings │
+" └──────────────┘
+
 " Fold
 " zM: close all folds (m: more)
 " zC: close all folds under cursor recursively
@@ -80,12 +148,12 @@ if has('clipboard')
   " When possible use + register for copy-paste, unnamed
   set clipboard+=unnamedplus
 else
-  vmap <Leader>y "+y
-  vmap <Leader>d "+d
-  vmap <Leader>p "+p
-  vmap <Leader>P "+P
-  nmap <Leader>p "+p
-  nmap <Leader>P "+P
+  vmap <leader>y "+y
+  vmap <leader>d "+d
+  vmap <leader>p "+p
+  vmap <leader>P "+P
+  nmap <leader>p "+p
+  nmap <leader>P "+P
 endif
 " map paste, yank and delete to named register so the content
 " will not be overwritten
@@ -114,15 +182,15 @@ vnoremap <leader>w <Esc>:w<CR>
 " WINDOWS
 " use fzf plugin
 " split window (consisted with tmux)
-nnoremap <silent> <Leader>- :call fzf#run({
+nnoremap <silent> <leader>- :call fzf#run({
       \   'down': '40%',
       \   'sink': 'split' })<CR>
 " vsplit, not use `vertical botright split`
-nnoremap <silent> <Leader>/ :call fzf#run({
+nnoremap <silent> <leader>/ :call fzf#run({
       \   'right': winwidth('.') / 2,
       \   'sink':  'vsplit' })<CR>
 " new tab
-nnoremap <silent> <Leader>t :call fzf#run({
+nnoremap <silent> <leader>t :call fzf#run({
       \   'right': winwidth('.') / 2,
       \   'sink':  'tabnew' })<CR>
 " tab
@@ -165,25 +233,27 @@ autocmd FileType css setlocal ts=2 sts=2 sw=2
 
 "I don't want the docstring window to popup during completion
 " set completeopt-=preview
-autocmd FileType python setlocal completeopt-=preview
+" autocmd FileType python setlocal completeopt-=preview
 
 
+" ┌──────────────────────────┐
+" │ Plugin Config & Mappings │
+" └──────────────────────────┘
 
-" plugin config
-let g:python_host_prog  = $PYENV_ROOT . '/versions/neovim2/bin/python'
-let g:python3_host_prog = $PYENV_ROOT . '/versions/neovim3/bin/python'
-
-" install plug.vim {{{
-let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
-if !filereadable(vimplug_exists)
-  echo "Installing Vim-Plug..."
-  echo ""
-  silent !\curl -fLo ~/.config/nvim/autoload/plug.vim --create-dirs https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
-  let g:not_finish_vimplug = "yes"
-
-  autocmd VimEnter * PlugInstall
+if exists('+termguicolors')
+  set termguicolors                   " true color, terminal using
 endif
-" }}}
+
+" colorscheme options
+let iterm_profile = $ITERM_PROFILE
+let &background=iterm_profile
+
+" if iterm_profile == 'dark'
+" colorscheme lucius
+" LuciusDarkHighContrast
+" endif
+let g:molokai_original = 1
+colorscheme molokai
 
 
 " FZF
@@ -202,6 +272,7 @@ let g:fzf_colors =
       \ 'header':  ['fg', 'Comment'] }
 
 " status line: vim-airline
+let g:airline_powerline_fonts = 1
 let g:airline_theme='solarized'
 " let g:airline#extensions#tabline#enabled = 1
 " let g:airline#extensions#tabline#buffer_nr_show = 1
@@ -231,112 +302,35 @@ let g:EasyMotion_off_screen_search = 0
 " Smartsign (type `3` and match `3`&`#`)
 let g:EasyMotion_use_smartsign_us = 1
 let g:EasyMotion_startofline = 0 " keep cursor column when JK motion
-map <Leader>l <Plug>(easymotion-lineforward)
-map <Leader>j <Plug>(easymotion-j)
-map <Leader>k <Plug>(easymotion-k)
-map <Leader>h <Plug>(easymotion-linebackward)
-map <Leader>f <Plug>(easymotion-s)
-map <Leader>F <Plug>(easymotion-s2)
+map <leader>l <Plug>(easymotion-lineforward)
+map <leader>j <Plug>(easymotion-j)
+map <leader>k <Plug>(easymotion-k)
+map <leader>h <Plug>(easymotion-linebackward)
+map <leader>f <Plug>(easymotion-s)
+map <leader>F <Plug>(easymotion-s2)
 
 " Plug 'terryma/vim-expand-region'
 vmap v <Plug>(expand_region_expand)
 vmap <C-v> <Plug>(expand_region_shrink)
 
-" ale
-"" Move between linting errors
-nnoremap <C-k> :ALENextWrap<CR>
-nnoremap <C-j> :ALEPreviousWrap<CR>
-let g:ale_fix_on_save = 1
-let g:ale_fixers = {
-\   '*': ['remove_trailing_lines', 'trim_whitespace'],
-\   'python': ['black', 'isort'],
-\   'javascript': ['prettier', 'eslint']
-\ }
-
-let g:ale_python_flake8_executable = g:python3_host_prog
-let g:ale_python_flake8_options = '-m flake8'
-let g:ale_python_flake8_use_global = 1
-let g:ale_python_black_executable = g:python3_host_prog
-" fucking the author, he is tenacious to change to single quote
-let g:ale_python_black_options = '-m black --skip-string-normalization'
-let g:ale_python_isort_executable = g:python3_host_prog
-let g:ale_python_isort_options = '-m isort'
-
-
-" deoplete
-let g:deoplete#enable_at_startup = 1
-let g:deoplete#enable_smart_case = 1
-
-" = jedi-vim
-" Usage: <leader>d : go to definition, K : check docs, <leader>n : show usage,
-" <leader>r: rename
-" disable autocompletion, cause we use deoplete for completion
-let g:jedi#completions_enabled = 0
-
+" coc.nvim
+let g:coc_global_extensions = ["coc-css",
+            \ "coc-eslint",
+            \ "coc-html",
+            \ "coc-json",
+            \ "coc-prettier",
+            \ "coc-python",
+            \ "coc-tsserver",
+            \ "coc-vetur"]
 " Remap keys for gotos
 nmap <silent> gd <Plug>(coc-definition)
 nmap <silent> gy <Plug>(coc-type-definition)
 nmap <silent> gi <Plug>(coc-implementation)
 nmap <silent> gr <Plug>(coc-references)
 
+nmap <silent> <leader>r <Plug>(coc-rename)
 
-" plugins
-call plug#begin(expand('~/.config/nvim/plugged'))
+" navigate diagnostics
+nmap <silent> g[ <Plug>(coc-diagnostic-prev)
+nmap <silent> g] <Plug>(coc-diagnostic-next)
 
-" ui/theme
-Plug 'jonathanfilip/vim-lucius'
-Plug 'lifepillar/vim-solarized8'
-Plug 'tomasr/molokai'
-
-
-" status line
-Plug 'vim-airline/vim-airline'
-Plug 'vim-airline/vim-airline-themes'
-
-Plug 'tpope/vim-surround'
-
-Plug 'ervandew/supertab'
-" Plug 'Shougo/deoplete.nvim', { 'do': ':UpdateRemotePlugins' }
-" autocomplete
-Plug 'neoclide/coc.nvim', {'branch': 'release'}
-
-" `gc` to comment toggle, eg: gcap
-Plug 'tpope/vim-commentary'
-
-" Syntax Highlighting And Indentation For 100+ Languages
-Plug 'sheerun/vim-polyglot'
-" syntax checker
-Plug 'dense-analysis/ale'
-" code formatter
-Plug 'Chiel92/vim-autoformat'
-
-" python
-"Plug 'deoplete-plugins/deoplete-jedi', { 'for': 'python' }
-Plug 'fisadev/vim-isort', { 'for': 'python' }
-"Plug 'davidhalter/jedi-vim', { 'for': 'python' }
-
-" navigation
-Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
-Plug 'junegunn/fzf.vim'
-Plug 'christoomey/vim-tmux-navigator'
-Plug 'easymotion/vim-easymotion'
-Plug 'terryma/vim-expand-region'
-Plug 'scrooloose/nerdtree', { 'on':  [ 'NERDTreeToggle', 'NERDTreeFind' ] }
-
-call plug#end()
-
-
-if exists('+termguicolors')
-  set termguicolors                   " true color, terminal using
-endif
-
-" colorscheme options
-let iterm_profile = $ITERM_PROFILE
-let &background=iterm_profile
-
-" if iterm_profile == 'dark'
-" colorscheme lucius
-" LuciusDarkHighContrast
-" endif
-let g:molokai_original = 1
-colorscheme molokai

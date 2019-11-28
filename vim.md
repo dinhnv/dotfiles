@@ -19,8 +19,7 @@
   npm install -g eslint
   npm install -g prettier
   ```
-- ALE plugin for code linting (flake8, eslint)
-- deoplete for autocompletion
+// - ALE plugin for code linting (flake8, eslint)
 - coc.nvim for autocompletion:
     ```
     :CocInstall coc-tsserver coc-json coc-html coc-css coc-python
@@ -32,7 +31,7 @@
 - formatter: black
 - lint: flake8
 
-* python provider and some dependencies for plugins
+* `neovim{2,3} for python provider and some dependencies (flake8, black)
   create separated two python environments
 
   ```
