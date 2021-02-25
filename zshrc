@@ -12,13 +12,14 @@ fi
 export ZSH=$HOME/.oh-my-zsh
 # export ZSH_THEME="dino"
 # ZSH_THEME="mortalscumbag"
-ZSH_THEME="dino"
+ZSH_THEME="af-magic"
 
 plugins=(
     git
     zsh-autosuggestions
     zsh-completions
     python
+    aws
 #    zsh-syntax-highlighting
 )
 source $ZSH/oh-my-zsh.sh
@@ -75,3 +76,16 @@ source "$HOME/.dotfiles/zsh/functions"
 # tabtab source for slss package
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
+
+# Added by serverless binary installer
+# export PATH="$HOME/.serverless/bin:$PATH"
+export PATH="$PATH:/Applications/MySQLWorkbench.app/Contents/MacOS:$HOME/.serverless/bin"
+
+autoload -U +X bashcompinit && bashcompinit
+complete -o nospace -C /usr/local/bin/terraform terraform
+
+# Created by `userpath` on 2020-08-24 04:43:36
+export PATH="$PATH:/Users/dino/.local/bin"
+
+# Created by `userpath` on 2020-08-24 04:43:42
+export PATH="$PATH:/Users/dino/Library/Python/3.7/bin"

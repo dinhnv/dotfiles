@@ -9,6 +9,7 @@
 " https://github.com/zenbro/dotfiles/blob/master/.nvimrc
 """""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""""
 let iterm_profile = $ITERM_PROFILE
+let iterm_profile = 'dark'
 
 " hack for tmux
 set t_8f=^[[38;2;%lu;%lu;%lum
@@ -17,8 +18,8 @@ set t_8b=^[[48;2;%lu;%lu;%lum
 
 set nocompatible
 
-let g:python_host_prog  = $PYENV_ROOT . '/versions/neovim2/bin/python'
-let g:python3_host_prog = $PYENV_ROOT . '/versions/neovim3/bin/python'
+let g:python_host_prog  = $PYENV_ROOT . '/versions/py2-dev/bin/python'
+let g:python3_host_prog = $PYENV_ROOT . '/versions/py3-dev/bin/python'
 
 " plug.vim {{{
 let vimplug_exists=expand('~/.config/nvim/autoload/plug.vim')
