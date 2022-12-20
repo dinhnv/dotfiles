@@ -18,8 +18,8 @@ plugins=(
     git
     zsh-autosuggestions
     zsh-completions
-    python
-    aws
+    # python
+    # aws
 #    zsh-syntax-highlighting
 )
 source $ZSH/oh-my-zsh.sh
@@ -57,9 +57,6 @@ fi
 if which thefuck >/dev/null 2>&1; then
     eval $(thefuck --alias)
 fi
-
-# jump
-. /usr/local/etc/profile.d/z.sh
 
 
 source "$HOME/.dotfiles/zsh/exports"

@@ -73,6 +73,13 @@ export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 export NVM_DIR="$HOME/.nvm"
 alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
 
+# homebrew ruby
+if [ -d "/usr/local/opt/ruby/bin" ]; then
+  export PATH=/usr/local/opt/ruby/bin:$PATH
+  export PATH=`gem environment gemdir`/bin:$PATH
+fi
+
+
 
 ###########################################
 ########      theme conf          #########
