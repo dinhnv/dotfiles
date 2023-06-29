@@ -1,5 +1,5 @@
 alias ll='ls -lah'
-alias fig='docker-compose'
+alias fig='docker compose'
 alias dinodeploy='fab -f ~/dev/bots/dino_bot.py deploy:b=master'
 alias tmuxd='tmux new -s dev'
 alias redisd='redis-server /usr/local/etc/redis.conf'

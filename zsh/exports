@@ -70,8 +70,10 @@ unset MANPATH # delete if you already modified MANPATH elsewhere in your config
 export MANPATH="$NPM_PACKAGES/share/man:$(manpath)"
 
 # lazy load rarely used nvm
-export NVM_DIR="$HOME/.nvm"
-alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
+# export NVM_DIR="$HOME/.nvm"
+# alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
+# no lazy-load
+# [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
 
 # homebrew ruby
 if [ -d "/usr/local/opt/ruby/bin" ]; then

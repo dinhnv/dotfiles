@@ -7,6 +7,8 @@
     path  = ~/airtrip/.gitconfig
 [includeIf "gitdir:~/at/"]
     path  = ~/at/.gitconfig
+[includeIf "gitdir:~/jeritex/"]
+    path  = ~/jeritex/.gitconfig
 [core]
     excludesfile = ~/.gitignore
 [push]
@@ -58,3 +60,5 @@
 	required = true
 [pull]
 	ff = true
+[init]
+	defaultBranch = main

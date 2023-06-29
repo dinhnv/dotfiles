@@ -95,3 +95,16 @@ function ide() {
     tmux split-window -v -p 25
     tmux split-window -h -p 50
 }
+
+function docker_clean() {
+    docker rmi $(docker images -f "dangling=true" -q)
+}
+
+function docker_rmrestart() {
+    # docker compose -f docker-compose-db.yml ps --format json | jq '.[] | .Name' | xargs -n1 docker update --restart=no $1
+    docker compose ps --format json | jq '.[] | .Name' | xargs -n1 docker update --restart=no $1
+}
+
+function ssh_apwsand() {
+    ssh -NL 5555:10.0.0.80:5432 sand-web01.travelist.work 
+}

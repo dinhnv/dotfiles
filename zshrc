@@ -74,15 +74,34 @@ source "$HOME/.dotfiles/zsh/functions"
 # uninstall by removing these lines or running `tabtab uninstall slss`
 [[ -f /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh ]] && . /usr/local/lib/node_modules/serverless/node_modules/tabtab/.completions/slss.zsh
 
+[[ -s "/Users/leo/.sdkman/bin/sdkman-init.sh" ]] && source "/Users/leo/.sdkman/bin/sdkman-init.sh"
+
+
 # Added by serverless binary installer
 # export PATH="$HOME/.serverless/bin:$PATH"
 export PATH="$PATH:/Applications/MySQLWorkbench.app/Contents/MacOS:$HOME/.serverless/bin"
 
 autoload -U +X bashcompinit && bashcompinit
-complete -o nospace -C /usr/local/bin/terraform terraform
+# complete -o nospace -C /usr/local/bin/terraform terraform
+
+export NVM_DIR="$HOME/.nvm"
+# alias loadnvm='[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"'
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"
+
+# direnv
+eval "$(direnv hook zsh)"
+# anyenv
+eval "$(anyenv init -)"
+
 
 # Created by `userpath` on 2020-08-24 04:43:36
 export PATH="$PATH:/Users/dino/.local/bin"
 
 # Created by `userpath` on 2020-08-24 04:43:42
 export PATH="$PATH:/Users/dino/Library/Python/3.7/bin"
+
+if [[ -n $ZSH_PROF ]]; then
+  zprof
+fi
+export PATH="/usr/local/opt/php@5.6/bin:$PATH"
+export PATH="/usr/local/opt/php@5.6/sbin:$PATH"
